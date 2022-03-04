@@ -1,0 +1,99 @@
+@font-face {
+    font-family: CreditCard; 
+    src: url(fonts/CreditCard.ttf); /* Тестовый коммент */
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #08AEEA;
+    background-image: linear-gradient(to right, #81b8e7 0%, #00f2fe 100%);
+    font-family: CreditCard;
+    font-size: 25px;
+    color: #fff;
+}
+/* Фон страницы */
+
+.temp {
+    padding: 10px;
+    width: 800px;
+    height: 578px;
+    opacity: .5;
+    transition: opacity 1.3s, visibility 1s linear 1.3s;
+    z-index: 1;
+}
+/* Макет карты */
+.card {
+    margin: 30px auto;
+    padding: 12px;
+    width: 612px;
+    height: 376px;
+    background-color: #FBAB7E;
+    background-image: linear-gradient(to right, #d84343 0%, #2a6ad8 100%);
+    border-radius: 20px;
+    box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
+    z-index: 2;
+}
+
+.creditcard {
+    position: relative;
+    color: #fff4ef;
+    text-transform: uppercase;
+    text-shadow: rgb(37 37 37) 1px 2px 1px;
+    letter-spacing: 4px;
+}
+
+.cardholder {
+    position: absolute;
+    top: 328px;
+    left: 25px;
+    max-width: 555px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.number {
+    position: absolute;
+    top: 240px;
+    left: 26px;
+    letter-spacing: 10px;
+    max-width: 555px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.validdate {
+    position: absolute;
+    top: 291px;
+    left: 295px;
+}
+
+.alfa {
+    position: absolute;
+    left: 24px;
+    font-size: 70px;
+    max-width: 40px;
+    border-bottom: solid 7px #ffffff;
+}
+
+.chip {
+    position: absolute;
+    color: #fff;
+    top: 121px;
+    left: 11px;
+    width: 102px;
+    height: 92px;
+    cursor: pointer;
+    /* object-fit: contain; */
+}
+
+.temp:hover {
+    opacity: 1;
+}
+
+.card-item-list {
+    display: flex;
+    justify-content: space-around;  
+}
