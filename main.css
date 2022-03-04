@@ -95,5 +95,90 @@ body {
 
 .card-item-list {
     display: flex;
-    justify-content: space-around;  
+    justify-content: space-around; 
+    flex-wrap: wrap; 
+}
+
+@media (max-width:1347px) {
+
+.card-item-list {
+    flex-wrap: wrap; 
+    }
+}
+
+@media (max-width:670px) {
+
+body {
+    font-size: 12.5px;
+    }
+.card {
+    margin: 15px auto;
+    padding: 6px;
+    width: 306px;
+    height: 183px;
+    background-color: #FBAB7E;
+    background-image: linear-gradient(to right, #d84343 0%, #2a6ad8 100%);
+    border-radius: 10px;
+    box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
+    z-index: 2;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.creditcard {
+    position: relative;
+    color: #fff4ef;
+    text-transform: uppercase;
+    text-shadow: rgb(37 37 37) 1px 2px 1px;
+    letter-spacing: 2px;
+}
+
+.cardholder {
+    position: absolute;
+    top: 164px;
+    left: 12.5px;
+    max-width: 277.5px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.number {
+    position: absolute;
+    top: 120px;
+    left: 13px;
+    letter-spacing: 5px;
+    max-width: 277.5px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.validdate {
+    position: absolute;
+    top: 145.5px;
+    left: 147.5px;
+}
+
+.alfa {
+    position: absolute;
+    left: 12px;
+    font-size: 35px;
+    max-width: 20px;
+    border-bottom: solid 3.5px #ffffff;
+}
+
+.chip {
+    position: absolute;
+    color: #fff;
+    top: 60.5px;
+    left: 5.5px;
+    width: 51px;
+    height: 46px;
+    cursor: pointer;
+    /* object-fit: contain; */
+}
+
+.card-item-list {
+    flex-wrap: wrap;
+}
 }
