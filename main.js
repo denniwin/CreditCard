@@ -7,3 +7,4 @@ function formatCardCode() {
     this.value = cardCode;
     myform.number.value=this.value.split(" ").join("");
 }
+
