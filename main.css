@@ -11,7 +11,6 @@ body {
     margin: 0 auto;
     background-color: #08AEEA;
     background-image: linear-gradient(to right, #81b8e7 0%, #00f2fe 100%);
-    font-family: CreditCard;
     font-size: 25px;
     color: #fff;
 
@@ -43,10 +42,16 @@ body {
     padding: 12px;
     width: 612px;
     height: 376px;
+    font-family: CreditCard;
     background-color: #FBAB7E;
     background-image: linear-gradient(to right, #d84343 0%, #2a6ad8 100%);
     border-radius: 20px;
     box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
+}
+
+.card__gray {
+background-color: #ddd;
+background-image: unset
 }
 
 .creditcard {
