@@ -11,39 +11,34 @@
 <body>
             <!-- Navigation -->
             <nav class="menu">
-                <div class="date">Сегодня девятое марта</div>
+                <div class="date"></div>
             </nav>
 <div class="wrapper">
-        <div class="card"><!-- Card1 -->
+        <div class="card"><!-- Card -->
             <div class="creditcard">
-                <div class="number">4289 2903 1994 45126</div>
-                <div class="validdate">
-                    03/18
-                </div>
-                <div class="cardholder">
-                    CaRdHoLdEr
-                </div>
+                <div class="number"></div>
+                <div class="validdate"></div>
+                <div class="cardholder"></div>
                 <div class="alfa">A</div>
                 <div class="img"><img class="chip" src="/img/1.svg" alt=""></div>
             </div>
         </div>
-        <div class="card"><!-- Card2 -->
-            <div class="creditcard">
-                <div class="number">4289 2903 1994 451267</div>
-                <div class="validdate">
-                    03/18
-                </div>
-                <div class="cardholder">
-                    CaRdHoLdEr
-                </div>
-                <div class="alfa">A</div>
-                <div class="img"><img class="chip" src="/img/1.svg" alt=""></div>
-            </div>
-        </div>
-    <div class="inputvalue">
+    <div class="inputvalue"><!-- Add value -->
         <form name="myform">
-            <input type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" id="cardcode" placeholder="XXXX XXXX XXXX XXXX"> 
-            <!-- <input type=hidden name=number value="">  -->
+            <div class="add_number">
+                <input type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" id="cardcode" placeholder="XXXX XXXX XXXX XXXX">
+                <button id="btn_add_number">Добавить номер карты</button>
+            </div>
+            <div class="add_cardname">
+                <input type="text" pattern="[A-Z]" id="cardname" placeholder="Ivanov Ivan">
+                <button id="btn_add_cardname">Добавить имя владельца</button>
+            </div>  
+            <div class="add_carddate">
+                <input type="text" pattern="" id="carddate" placeholder="02/22">
+                <button id="btn_add_date">Добавить срок действия</button>
+            </div>   
+            <button class="button-15" id="btn_all_clear">Очистить все поля</button>
+            <button class="button-15" id="new_background">Сменить фон карты</button>
         </form>
     </div>
 </div>
