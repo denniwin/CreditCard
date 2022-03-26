@@ -24,17 +24,10 @@ body {
     background-image: linear-gradient(to right, #2a6ad8 0%, #d84343 100%);
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
-.temp {
-    padding: 10px;
-    width: 800px;
-    height: 578px;
-    opacity: .5;
-    transition: opacity 1.3s, visibility 1s linear 1.3s;
-    z-index: 1;
-}
 /* Макет карты */
 .card {
     margin: 30px auto;
@@ -49,7 +42,6 @@ body {
 
 .card__other {
     background-image: linear-gradient(to right, #2a6ad8 0%, #d84343 100%);
-
 }
 
 .creditcard {
@@ -104,10 +96,6 @@ body {
     /* object-fit: contain; */
 }
 
-.temp:hover {
-    opacity: 1;
-}
-
 .wrapper {
     display: flex;
     justify-content: space-between;
@@ -115,41 +103,69 @@ body {
     flex-wrap: wrap;
 }
 
+input {
+    min-width: 174px;
+}
+
 .inputvalue {
-    margin: 30px auto;
-    padding: 12px;
-    width: 612px;
-    height: 376px;
-    background-color: #FBAB7E;
-    background-image: linear-gradient(to right, #d84343 0%, #2a6ad8 100%);
-    border-radius: 20px;
-    box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
+    position: absolute;
+    left: 211px;
+}
+
+.inputvalue__off {
+    display: none;
+}
+
+.button_card {
+    margin-left: 20px;
+}
+
+/* Кнопки */
+.button-37 {
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-37:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
 }
 
 .button-15 {
     background-image: linear-gradient(#42A1EC, #0070C9);
     border: 1px solid #0077CC;
-    border-radius: 4px;
+    border-radius: 2px;
     display: inline;
     box-sizing: border-box;
     color: #FFFFFF;
     cursor: pointer;
     direction: ltr;
-    font-family: "SF Pro Text","SF Pro Icons","AOS Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 17px;
+    min-width: 182px;
     font-weight: 400;
     letter-spacing: -.022em;
     line-height: 1.47059;
-    min-width: 30px;
     overflow: visible;
-    padding: 4px 15px;
     text-align: center;
     vertical-align: baseline;
     user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
     white-space: nowrap;
-    margin-top: 4px;
 }
 
 .button-15:disabled {
@@ -174,6 +190,10 @@ body {
     outline: none;
 }
 
+.button_nav {
+    min-width: 182px;
+}
+
 @media (max-width:1347px) {
 
 .wrapper {
@@ -191,6 +211,9 @@ body {
     flex-wrap: wrap;
     }
 
+.button-37 {
+    padding: 10px 8px;
+}
 .card {
     margin: 15px auto;
     padding: 6px;
@@ -255,5 +278,12 @@ body {
     height: 46px;
     cursor: pointer;
     /* object-fit: contain; */
+}
+
+.inputvalue {
+    position: absolute;
+    top: 16px;
+    left: 221px;
+    font-size: 8px;
 }
 }

@@ -28,12 +28,16 @@ for (var i in ['input', 'change', 'blur', 'keyup']) {
 }
 
 function formatcardname() {
-    var cardname = this.value.replace(/[^\d]/g, '').substring(0,30);
-    cardname = cardname != '' ? cardname.match(/\D/g).join('') : '';
+    var cardname = this.value.replace(/[^A-Z\s]+/ig, '').substring(0,30);
     this.value = cardname;
     myform.number.value=this.value.split(" ").join("");
 }
 
+
+//Показать окно для редактирования
+$('#btn_add').click(function(e) {e.preventDefault()
+    $('.inputvalue').toggleClass('inputvalue__off').slideToggle()
+})
 //Переключатель фона
 $('#new_background').click(function(e) {e.preventDefault()
     $('.card').toggleClass('card__other')
@@ -68,7 +72,7 @@ $('#btn_all_clear').click(function(e){e.preventDefault()
 //Дата время
 jQuery(function($) {
     setInterval(function() {
-    var Months = ['январь', 'февраль', 'Март']
+    var Months = ['январь', 'февраль', 'Мартик']
     var date = new Date()  
     var m = Months[date.getMonth()]
     time = date.toLocaleTimeString();
