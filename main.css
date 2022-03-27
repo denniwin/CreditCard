@@ -3,6 +3,12 @@
     src: url(fonts/CreditCard.ttf); /* Тестовый коммент */
 }
 
+@keyframes opacity {
+    0% {opacity: 0.5}
+    50% {opacity: 1}
+    100% {opacity: 0.5}
+}
+
 html {
     margin: 0;
     padding: 0;
@@ -13,7 +19,18 @@ body {
     background-image: linear-gradient(to right, #81b8e7 0%, #00f2fe 100%);
     font-size: 25px;
     color: #fff;
+}
 
+.img {
+    background-image: url(/img/1.svg);
+    position: absolute;
+    color: #fff;
+    top: 136px;
+    left: 42px;
+    width: 84px;
+    height: 92px;
+    cursor: pointer;
+    object-fit: contain;
 }
 /* Фон страницы */
 
@@ -30,6 +47,7 @@ body {
 
 /* Макет карты */
 .card {
+    position: relative;
     margin: 30px auto;
     padding: 12px;
     width: 612px;
@@ -38,24 +56,17 @@ body {
     background-image: linear-gradient(to right, #d84343 0%, #2a6ad8 100%);
     border-radius: 20px;
     box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
+    z-index: 1;
 }
 
 .card__other {
     background-image: linear-gradient(to right, #2a6ad8 0%, #d84343 100%);
 }
 
-.creditcard {
-    position: relative;
-    color: #fff4ef;
-    text-transform: uppercase;
-    text-shadow: rgb(37 37 37) 1px 2px 1px;
-    letter-spacing: 4px;
-}
-
 .cardholder {
     position: absolute;
     top: 328px;
-    left: 25px;
+    left: 42px;
     max-width: 555px;
     overflow: hidden;
     white-space: nowrap;
@@ -64,7 +75,7 @@ body {
 .number {
     position: absolute;
     top: 240px;
-    left: 26px;
+    left: 42px;
     letter-spacing: 10px;
     max-width: 555px;
     overflow: hidden;
@@ -74,12 +85,12 @@ body {
 .validdate {
     position: absolute;
     top: 291px;
-    left: 295px;
+    left: 310px;
 }
 
 .alfa {
     position: absolute;
-    left: 24px;
+    left: 42px;
     font-size: 70px;
     max-width: 40px;
     border-bottom: solid 7px #ffffff;
@@ -88,8 +99,8 @@ body {
 .chip {
     position: absolute;
     color: #fff;
-    top: 121px;
-    left: 11px;
+    top: 136px;
+    left: 42px;
     width: 102px;
     height: 92px;
     cursor: pointer;
@@ -103,49 +114,95 @@ body {
     flex-wrap: wrap;
 }
 
-input {
-    min-width: 174px;
+input[type="text"]{
+    background: linear-gradient(to left, #2a6ad8 0%, #d84343 100%);
+    border-radius: 5px;
+    color: #fff;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 4px 0px rgb(0 0 0 / 60%);
+    width: 555px;
+    letter-spacing: 10px;
+    font-size: 30px;
+    padding-left: 7px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.877);
+
 }
 
 .inputvalue {
     position: absolute;
-    left: 211px;
+    left: 144px;
+    top: 64px;
 }
 
 .inputvalue__off {
     display: none;
 }
 
+#cardcode {
+    position: absolute;
+    top: 176px;
+    left: -103px;
+}
+
+#cardname {
+    position: absolute;
+    top: 264px;
+    left: -103px;
+    letter-spacing: 1px;
+}
+
+#carddate {
+    position: absolute;
+    top: 220px;
+    left: -103px;
+    letter-spacing: 1px;
+}
+
+
 .button_card {
     margin-left: 20px;
 }
 
 /* Кнопки */
-.button-37 {
-    background-color: #13aa52;
-    border: 1px solid #13aa52;
-    border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
-    box-sizing: border-box;
+
+.button_settings {
+    background-image: url(/img/correct.png);
+    background-size: cover;
+    position: absolute;
     color: #fff;
+    top: 8px;
+    left: 581px;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
-    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    outline: none;
-    outline: 0;
-    padding: 10px 25px;
-    text-align: center;
-    transform: translateY(0);
-    transition: transform 150ms, box-shadow 150ms;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
 }
 
-.button-37:hover {
-    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
-    transform: translateY(-2px);
+.button_ok {
+    background-image: url(/img/correct.png);
+    background-size: cover;
+    position: absolute;
+    color: #fff;
+    top: 8px;
+    left: 520px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+}
+
+.button_okk {
+    background-image: url(/img/settings.png);
+}
+
+.button_settings:hover {
+    animation: opacity 2s linear infinite;
 }
 
 .button-15 {

@@ -12,37 +12,22 @@
             <!-- Navigation -->
             <nav class="menu">
                 <div class="date"></div>
-                <div class="button_card"><button class="button-37" id="btn_add">Редактировать карту</button></div>
             </nav>
 <div class="wrapper">
         <div class="card"><!-- Card -->
-            <div class="creditcard">
+                <div class="button_settings"><a href="#"></a></div>
                 <div class="number"></div>
                 <div class="validdate"></div>
                 <div class="cardholder"></div>
                 <div class="alfa">A</div>
-                <div class="img"><img class="chip" src="/img/1.svg" alt=""></div>
-                                <div class="inputvalue"><!-- Add value -->
+                <div class="img"></div>
+                    <div class="inputvalue"><!-- Add value -->
                     <form name="myform">
-                        <div class="add_number">
                             <input type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" id="cardcode" placeholder="XXXX XXXX XXXX XXXX">
-                            <button class="button_nav" id="btn_add_number">Добавить номер карты</button>
-                        </div>
-                        <div class="add_cardname">
-                            <input type="text" pattern="[A-Z]" id="cardname" placeholder="Ivanov Ivan">
-                            <button class="button_nav" id="btn_add_cardname">Добавить имя владельца</button>
-                        </div>  
-                        <div class="add_carddate">
-                            <input type="text" pattern="" id="carddate" placeholder="02/22">
-                            <button class="button_nav" id="btn_add_date">Добавить срок действия</button>
-                        </div>   
-                        <div class="add_content">
-                            <button class="button-15" id="btn_all_clear">Очистить все поля</button>
-                            <button class="button-15" id="new_background">Сменить фон карты</button>
-                        </div>
+                            <input type="text" pattern="" id="cardname" placeholder="Имя Владельца">
+                            <input type="text" pattern="" id="carddate" placeholder="Дата окончания срока">
                     </form>
                 </div>
-            </div>
         </div>
 </div>
     <script src="main.js"></script>

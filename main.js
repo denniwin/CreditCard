@@ -33,15 +33,25 @@ function formatcardname() {
     myform.number.value=this.value.split(" ").join("");
 }
 
+$('.button_settings, .button_okk, .number, .validdate, .cardholder').click(function(e) {e.preventDefault()
+    $('.inputvalue').toggleClass('inputvalue__off')
+    $('.button_settings').toggleClass('button_okk')
+    $('.number').text(($('#cardcode').val()))
+    $('.cardholder').text(($('#cardname').val()))
+    $('.validdate').text(($('#carddate').val())) 
+})
 
-//Показать окно для редактирования
-$('#btn_add').click(function(e) {e.preventDefault()
-    $('.inputvalue').toggleClass('inputvalue__off').slideToggle()
-})
-//Переключатель фона
-$('#new_background').click(function(e) {e.preventDefault()
-    $('.card').toggleClass('card__other')
-})
+
+//Применить изменения в резерв
+// $('.button_okk, .number, .validdate, .cardholder').click(function(e) {e.preventDefault()
+//     $('.inputvalue').toggleClass('inputvalue__off')
+//     $('.button_settings').toggleClass('button_okk')
+//     $('.number').text(($('#cardcode').val()))
+//     $('.cardholder').text(($('#cardname').val()))
+//     $('.validdate').text(($('#carddate').val()))
+    
+// })
+
 
 //Добавить номер карты
 $('#btn_add_number').click(function(e){e.preventDefault()
@@ -58,15 +68,9 @@ $('#btn_add_date').click(function(e){e.preventDefault()
 	$('.validdate').text(($('#carddate').val()))
 });
 
-// Кнопка очистки всех значения
+// Кнопка очистки всех значений
 $('#btn_all_clear').click(function(e){e.preventDefault()
-    $('#cardcode').val('')
-    $('#cardname').val('')
-    $('#carddate').val('')
-	$('.number').text('Add card number')
-    $('.cardholder').text('Add Name')
-    $('.validdate').text('Add date')
-    
+    $('.inputvalue').toggleClass('inputvalue__off').slideToggle()   
 });
 
 //Дата время
