@@ -33,7 +33,7 @@ function formatcardname() {
     myform.number.value=this.value.split(" ").join("");
 }
 
-$('.button_settings, .button_okk, .number, .validdate, .cardholder').click(function(e) {e.preventDefault()
+$('.button_settings, .button_okk').click(function(e) {e.preventDefault()
     $('.inputvalue').toggleClass('inputvalue__off')
     $('.button_settings').toggleClass('button_okk')
     $('.number').text(($('#cardcode').val()))

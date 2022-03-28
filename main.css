@@ -70,6 +70,7 @@ body {
     max-width: 555px;
     overflow: hidden;
     white-space: nowrap;
+    text-transform: uppercase;
 }
 
 .number {
