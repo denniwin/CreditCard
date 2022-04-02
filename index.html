@@ -9,23 +9,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-            <!-- Navigation -->
-            <nav class="menu">
-                <div class="date"></div>
-            </nav>
+    <nav class="menu"> <!-- Navigation -->
+        <div class="date"></div>
+        <div class="clone"><button id="add">clone</button></div>
+        <div class="clone"><button id="clear">clear</button></div>
+        <div class="clone"><button id="check">check</button></div>
+    </nav>
 <div class="wrapper">
-        <div class="card"><!-- Card -->
+        <div class="card"> <!-- Card1 -->
                 <div class="button_settings"><a href="#"></a></div>
-                <div class="number"></div>
-                <div class="validdate"></div>
-                <div class="cardholder"></div>
+                <div class="number__off"></div>
+                <div class="validdate__off"></div>
+                <div class="cardholder__off"></div>
                 <div class="alfa">A</div>
-                <div class="img"></div>
-                    <div class="inputvalue"><!-- Add value -->
+                <div class="chip"></div>
+                <div class="inputvalue"><!-- Add value -->
                     <form name="myform">
-                            <input type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" id="cardcode" placeholder="XXXX XXXX XXXX XXXX">
-                            <input type="text" pattern="" id="cardname" placeholder="Имя Владельца">
-                            <input type="text" pattern="" id="carddate" placeholder="Дата окончания срока">
+                        <input type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" id="cardcode">
+                        <input type="text" id="cardname">
+                        <input type="text" id="carddate">
                     </form>
                 </div>
         </div>

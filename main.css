@@ -1,6 +1,6 @@
 @font-face {
-    font-family: CreditCard; 
-    src: url(fonts/CreditCard.ttf); /* Тестовый коммент */
+    font-family: 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* Тестовый коммент */
 }
 
 @keyframes opacity {
@@ -14,28 +14,35 @@ html {
     padding: 0;
 }
 body {
+    font-family: 'Roboto', sans-serif;
     margin: 0 auto;
-    background-color: #08AEEA;
-    background-image: linear-gradient(to right, #81b8e7 0%, #00f2fe 100%);
+    height: 100%;
+    background-image: linear-gradient(var(--angle), #000000 0%, #7f8288 100%);
     font-size: 25px;
     color: #fff;
 }
 
-.img {
-    background-image: url(/img/1.svg);
+.chip {
+    background-image: url(/img/chip.png);
+    background-size: cover;
+    width: 64px;
+    height: 64px;
     position: absolute;
-    color: #fff;
-    top: 136px;
-    left: 42px;
-    width: 84px;
-    height: 92px;
+    top: 50%;
+    left: 40px;
+    transform: translate(0,-50%);
     cursor: pointer;
     object-fit: contain;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
 }
 /* Фон страницы */
 
 .menu {
-    /* width: 100%; */
+    width: 100%;
+    position: fixed;
     padding-left: 10px;
     height: 50px;
     background-image: linear-gradient(to right, #2a6ad8 0%, #d84343 100%);
@@ -43,69 +50,106 @@ body {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    z-index: 5;
 }
 
 /* Макет карты */
 .card {
+    --angle: 0deg;
     position: relative;
-    margin: 30px auto;
-    padding: 12px;
+    margin: 70px auto;
+    padding: 20px 20px 20px 20px;
     width: 612px;
+    /* border: 5px solid; */
     height: 376px;
-    font-family: CreditCard;
-    background-image: linear-gradient(to right, #d84343 0%, #2a6ad8 100%);
-    border-radius: 20px;
+    background-image: linear-gradient(var(--angle), #d50000 0%, #0140ad 100%);
+    border-radius: 40px;
     box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
-    z-index: 1;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+    /* border-image: linear-gradient(var(--angle),#00cc99, #eef0f5, #6600ff) 1 ; */
+    animation: 5s rotate linear infinite;
+    -webkit-animation: 5s rotate linear infinite;
+}
+
+@keyframes rotate { to {--angle:360deg;}}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
 }
 
 .card__other {
-    background-image: linear-gradient(to right, #2a6ad8 0%, #d84343 100%);
+    background-image: linear-gradient(
+        45deg,
+        hsl(240deg 100% 20%) 0%,
+        hsl(268deg 63% 24%) 11%,
+        hsl(290deg 36% 29%) 22%,
+        hsl(327deg 24% 37%) 33%,
+        hsl(5deg 21% 46%) 44%,
+        hsl(28deg 31% 49%) 56%,
+        hsl(39deg 44% 52%) 67%,
+        hsl(46deg 61% 54%) 78%,
+        hsl(51deg 80% 55%) 89%,
+        hsl(55deg 100% 50%) 100%);
 }
 
-.cardholder {
+.cardholder__off {
     position: absolute;
-    top: 328px;
-    left: 42px;
+    top: 351px;
+    left: 59px;
     max-width: 555px;
     overflow: hidden;
     white-space: nowrap;
     text-transform: uppercase;
+    font-size: 45px;
+    font-weight: 700;
+    display: none;
 }
 
-.number {
+.cardholder {
+    display: block;
+}
+
+.number__off {
     position: absolute;
-    top: 240px;
-    left: 42px;
-    letter-spacing: 10px;
+    top: 251px;
+    left: 60px;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 5px;
     max-width: 555px;
     overflow: hidden;
     white-space: nowrap;
+    display: none;
+}
+
+.number {
+    display: block;
+
+}
+
+.validdate__off {
+    position: absolute;
+    top: 304px;
+    left: 320px;
+    font-size: 40px;
+    font-weight: 700;
+    display: none;
 }
 
 .validdate {
-    position: absolute;
-    top: 291px;
-    left: 310px;
+    display: block;
 }
 
 .alfa {
     position: absolute;
-    left: 42px;
+    top: 8px;
     font-size: 70px;
-    max-width: 40px;
-    border-bottom: solid 7px #ffffff;
-}
-
-.chip {
-    position: absolute;
-    color: #fff;
-    top: 136px;
-    left: 42px;
-    width: 102px;
-    height: 92px;
-    cursor: pointer;
-    /* object-fit: contain; */
+    border-bottom: solid 5px #0140ad;
 }
 
 .wrapper {
@@ -116,61 +160,96 @@ body {
 }
 
 input[type="text"]{
-    background: linear-gradient(to left, #2a6ad8 0%, #d84343 100%);
-    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    background-color: transparent;
+    font-size: 45px;
+    font-weight: 700;
     color: #fff;
+    letter-spacing: 5px;
     outline: none;
-    border: none;
-    box-shadow: 0 0 4px 0px rgb(0 0 0 / 60%);
-    width: 555px;
-    letter-spacing: 10px;
-    font-size: 30px;
-    padding-left: 7px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
+    border: hidden;
 }
 
-input::placeholder {
-    color: rgba(255, 255, 255, 0.877);
+#cardcode {
+    position: absolute;
+    top: -30px;
+    left: 32px;
+    width: 86%;
+    width: 90%;
+}
 
+#cardcode:hover {
+    border-bottom: 3px solid rgb(255, 0, 0);
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+}
+
+
+#cardname {
+    position: absolute;
+    top: 70px;
+    left: 31px;
+    width: 90%;
+    letter-spacing: 0;
+}
+
+#cardname:hover{
+    border-bottom: 3px solid rgb(255, 0, 0);
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+}
+
+#carddate {
+    position: absolute;
+    font-size: 40px;
+    top: 23px;
+    left: 292px;
+    width: 20%;
+    letter-spacing: 0;
+}
+
+#carddate:hover {
+    border-bottom: 3px solid rgb(255, 0, 0);
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+}
+
+#carddate__off {
+    display: none;
+}
+
+#cardname__off {
+    display: none;
+}
+
+#cardcode__off {
+    display: none;
 }
 
 .inputvalue {
     position: absolute;
-    left: 144px;
-    top: 64px;
+    left: 26px;
+    top: 280px;
+    width: inherit;
 }
 
 .inputvalue__off {
     display: none;
 }
 
-#cardcode {
-    position: absolute;
-    top: 176px;
-    left: -103px;
-}
-
-#cardname {
-    position: absolute;
-    top: 264px;
-    left: -103px;
-    letter-spacing: 1px;
-}
-
-#carddate {
-    position: absolute;
-    top: 220px;
-    left: -103px;
-    letter-spacing: 1px;
-}
-
-
 .button_card {
     margin-left: 20px;
 }
+
 
 /* Кнопки */
 
@@ -179,12 +258,11 @@ input::placeholder {
     background-size: cover;
     position: absolute;
     color: #fff;
-    top: 8px;
     left: 581px;
     width: 48px;
     height: 48px;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .button_ok {
@@ -209,50 +287,12 @@ input::placeholder {
     animation: opacity 2s linear infinite;
 }
 
-.button-15 {
-    background-image: linear-gradient(#42A1EC, #0070C9);
-    border: 1px solid #0077CC;
-    border-radius: 2px;
-    display: inline;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    direction: ltr;
-    min-width: 182px;
-    font-weight: 400;
-    letter-spacing: -.022em;
-    line-height: 1.47059;
-    overflow: visible;
-    text-align: center;
-    vertical-align: baseline;
-    user-select: none;
-    white-space: nowrap;
-}
-
-.button-15:disabled {
-    cursor: default;
-    opacity: .3;
-}
-
-.button-15:hover {
-    background-image: linear-gradient(#51A9EE, #147BCD);
-    border-color: #1482D0;
-    text-decoration: none;
-}
-
-.button-15:active {
-    background-image: linear-gradient(#3D94D9, #0067B9);
-    border-color: #006DBC;
-    outline: none;
-}
-
-.button-15:focus {
-    box-shadow: rgba(131, 192, 253, 0.5) 0 0 0 3px;
-    outline: none;
-}
-
 .button_nav {
     min-width: 182px;
+}
+
+.testok {
+    background-color: #000;
 }
 
 @media (max-width:1347px) {
