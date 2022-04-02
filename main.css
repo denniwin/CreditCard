@@ -14,12 +14,11 @@ html {
     padding: 0;
 }
 body {
-    font-family: 'Roboto', sans-serif;
     margin: 0 auto;
-    height: 100%;
-    background-image: linear-gradient(var(--angle), #000000 0%, #7f8288 100%);
-    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
+    background-color: rgb(85, 85, 85);/* background-image: linear-gradient(var(--angle), #000000 0%, #7f8288 100%); */
+    font-size: 25px;
 }
 
 .chip {
@@ -186,7 +185,6 @@ input[type="text"]{
     -ms-transition: 1s;
     -o-transition: 1s;
 }
-
 
 #cardname {
     position: absolute;

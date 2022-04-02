@@ -12,12 +12,13 @@ jQuery(function($) {
 
 //Редактировать карту
 $('.button_okk, .button_settings').click(function(e) {e.preventDefault()
-    $('.inputvalue').toggleClass('inputvalue__off')
-    $('.button_settings').toggleClass('button_okk')
-    $('.number__off').toggleClass('number').text(($('#cardcode').val()))
-    $('.cardholder__off').toggleClass('cardholder').text(($('#cardname').val()))
-    $('.validdate__off').toggleClass('validdate').text(($('#carddate').val()))
+    $(this).parent().find('.inputvalue').toggleClass('inputvalue__off')
+    $(this).parent().find('.button_settings').toggleClass('button_okk')
+    $(this).parent().find('.number__off').toggleClass('number').text(($('#cardcode').val()))
+    $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(($('#cardname').val()))
+    $(this).parent().find('.validdate__off').toggleClass('validdate').text(($('#carddate').val()))
 })
+
 
 //Клонирование карты(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
