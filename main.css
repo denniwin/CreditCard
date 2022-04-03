@@ -9,6 +9,14 @@
     100% {opacity: 0.5}
 }
 
+@keyframes rotate { to {--angle:360deg;}}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 html {
     margin: 0;
     padding: 0;
@@ -21,24 +29,7 @@ body {
     font-size: 25px;
 }
 
-.chip {
-    background-image: url(/img/chip.png);
-    background-size: cover;
-    width: 64px;
-    height: 64px;
-    position: absolute;
-    top: 50%;
-    left: 40px;
-    transform: translate(0,-50%);
-    cursor: pointer;
-    object-fit: contain;
-    -webkit-transform: translate(0,-50%);
-    -moz-transform: translate(0,-50%);
-    -ms-transform: translate(0,-50%);
-    -o-transform: translate(0,-50%);
-}
-/* Фон страницы */
-
+/* Шапка */
 .menu {
     width: 100%;
     position: fixed;
@@ -50,6 +41,14 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     z-index: 5;
+}
+
+/* Обертка карт */
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 /* Макет карты */
@@ -73,27 +72,28 @@ body {
     -webkit-animation: 5s rotate linear infinite;
 }
 
-@keyframes rotate { to {--angle:360deg;}}
-
-@property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
+.alfa {
+    position: absolute;
+    top: 8px;
+    font-size: 70px;
+    border-bottom: solid 5px #0140ad;
 }
 
-.card__other {
-    background-image: linear-gradient(
-        45deg,
-        hsl(240deg 100% 20%) 0%,
-        hsl(268deg 63% 24%) 11%,
-        hsl(290deg 36% 29%) 22%,
-        hsl(327deg 24% 37%) 33%,
-        hsl(5deg 21% 46%) 44%,
-        hsl(28deg 31% 49%) 56%,
-        hsl(39deg 44% 52%) 67%,
-        hsl(46deg 61% 54%) 78%,
-        hsl(51deg 80% 55%) 89%,
-        hsl(55deg 100% 50%) 100%);
+.chip {
+    background-image: url(/img/chip.png);
+    background-size: cover;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    transform: translate(0,-50%);
+    cursor: pointer;
+    object-fit: contain;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
 }
 
 .cardholder__off {
@@ -128,7 +128,6 @@ body {
 
 .number {
     display: block;
-
 }
 
 .validdate__off {
@@ -142,20 +141,6 @@ body {
 
 .validdate {
     display: block;
-}
-
-.alfa {
-    position: absolute;
-    top: 8px;
-    font-size: 70px;
-    border-bottom: solid 5px #0140ad;
-}
-
-.wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
-    flex-wrap: wrap;
 }
 
 input[type="text"]{
@@ -248,9 +233,8 @@ input[type="text"]{
     margin-left: 20px;
 }
 
-
 /* Кнопки */
-
+/* Настройки */
 .button_settings {
     background-image: url(/img/correct.png);
     background-size: cover;
@@ -263,17 +247,20 @@ input[type="text"]{
     opacity: 1;
 }
 
+.button_settings:hover {
+    animation: opacity 2s linear infinite;
+}
+
+/* Кнопка ОК */
 .button_ok {
     background-image: url(/img/correct.png);
     background-size: cover;
     position: absolute;
     color: #fff;
-    top: 8px;
     left: 520px;
     width: 48px;
     height: 48px;
     cursor: pointer;
-
 }
 
 .button_okk {
@@ -281,10 +268,16 @@ input[type="text"]{
     opacity: 0.5;
 }
 
-.button_settings:hover {
-    animation: opacity 2s linear infinite;
+.button_cancel {
+    background-image: url(/img/cancel.png);
+    background-size: cover;
+    position: absolute;
+    color: #fff;
+    left: 512px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
 }
-
 .button_nav {
     min-width: 182px;
 }
@@ -292,6 +285,22 @@ input[type="text"]{
 .testok {
     background-color: #000;
 }
+
+.card__other {
+    background-image: linear-gradient(
+        45deg,
+        hsl(240deg 100% 20%) 0%,
+        hsl(268deg 63% 24%) 11%,
+        hsl(290deg 36% 29%) 22%,
+        hsl(327deg 24% 37%) 33%,
+        hsl(5deg 21% 46%) 44%,
+        hsl(28deg 31% 49%) 56%,
+        hsl(39deg 44% 52%) 67%,
+        hsl(46deg 61% 54%) 78%,
+        hsl(51deg 80% 55%) 89%,
+        hsl(55deg 100% 50%) 100%);
+}
+
 
 @media (max-width:1347px) {
 
@@ -306,83 +315,5 @@ body {
     font-size: 12.5px;
     }
 
-.wrapper {
-    flex-wrap: wrap;
-    }
 
-.button-37 {
-    padding: 10px 8px;
-}
-.card {
-    margin: 15px auto;
-    padding: 6px;
-    width: 306px;
-    height: 183px;
-    background-color: #FBAB7E;
-    background-image: linear-gradient(to right, #d84343 0%, #2a6ad8 100%);
-    border-radius: 10px;
-    box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-.creditcard {
-    position: relative;
-    color: #fff4ef;
-    text-transform: uppercase;
-    text-shadow: rgb(37 37 37) 1px 2px 1px;
-    letter-spacing: 2px;
-}
-
-.cardholder {
-    position: absolute;
-    top: 164px;
-    left: 12.5px;
-    max-width: 277.5px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.number {
-    position: absolute;
-    top: 120px;
-    left: 13px;
-    letter-spacing: 5px;
-    max-width: 277.5px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.validdate {
-    position: absolute;
-    top: 145.5px;
-    left: 147.5px;
-}
-
-.alfa {
-    position: absolute;
-    left: 12px;
-    font-size: 35px;
-    max-width: 20px;
-    border-bottom: solid 3.5px #ffffff;
-}
-
-.chip {
-    position: absolute;
-    color: #fff;
-    top: 60.5px;
-    left: 5.5px;
-    width: 51px;
-    height: 46px;
-    cursor: pointer;
-    /* object-fit: contain; */
-}
-
-.inputvalue {
-    position: absolute;
-    top: 16px;
-    left: 221px;
-    font-size: 8px;
-}
 }

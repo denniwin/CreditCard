@@ -12,6 +12,7 @@ jQuery(function($) {
 
 //Редактировать карту
 $('.button_okk, .button_settings').click(function(e) {e.preventDefault()
+    $(this).parent().find('.button_cancel').toggle(100)
     $(this).parent().find('.inputvalue').toggleClass('inputvalue__off')
     $(this).parent().find('.button_settings').toggleClass('button_okk')
     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
@@ -19,9 +20,19 @@ $('.button_okk, .button_settings').click(function(e) {e.preventDefault()
     $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
 })
 
+//Очистка содержимого(тест-ок)
+$('.button_cancel').click(function(e){e.preventDefault()
+    $(this).parent().find('#cardcode').val('')
+    $(this).parent().find('#cardholder').val('')
+    $(this).parent().find('#carddate').val('')
+});
+
 //Клонирование карты(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
-    $(".card:first").clone(true).appendTo(".wrapper");
+    $('.card').parent().find('#cardcode').val('')
+    $('.card').parent().find('#cardholder').val('')
+    $('.card').parent().find('#carddate').val('')
+    $(".card").clone(true).appendTo(".wrapper");
 })
 
 // Удаление карты(тест-ок)
@@ -32,7 +43,6 @@ $('#clear').click(function(e) {e.preventDefault()
     } else 
     alert ('Оставьте одну карту для редактирования')
 })
-
 
 //Только заглавные(тест-ок)
 $('#cardname').bind('input', function(){
@@ -79,6 +89,7 @@ $(function($){
 	});
 	digits_int_name('#cardname');
 });
+
 
 // //Маска номера карты
 // for (var i in ['input', 'change', 'blur', 'keyup']) {
@@ -137,10 +148,7 @@ $(function($){
 
 
 
-//Добавить номер карты
-$('#btn_add_number').click(function(e){e.preventDefault()
-	$('.number').text(($('#cardcode').val()))
-});
+
 
 //Добавить имя владельца
 $('#btn_add_cardname').click(function(e){e.preventDefault()
@@ -153,7 +161,7 @@ $('#btn_add_date').click(function(e){e.preventDefault()
 });
 
 // Кнопка очистки всех значений
-$('#btn_all_clear').click(function(e){e.preventDefault()
+$('').click(function(e){e.preventDefault()
     $('.inputvalue').toggleClass('inputvalue__off').slideToggle()   
 });
 
