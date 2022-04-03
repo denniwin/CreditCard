@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card</title>
     <link rel="stylesheet" href="main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>    
 </head>
 <body>
     <nav class="menu"> <!-- Navigation -->
@@ -18,7 +17,7 @@
     </nav>
 <div class="wrapper">
         <div class="card"> <!-- Card1 -->
-                <div class="button_settings"><a href="#"></a></div>
+                <div class="button_ok"><a href="#"></a></div>
                 <div class="button_cancel"><a href="#"></a></div>
                 <div class="number__off"></div>
                 <div class="validdate__off"></div>
@@ -27,9 +26,9 @@
                 <div class="chip"></div>
                 <div class="inputvalue"><!-- Add value -->
                     <form name="myform">
-                        <input type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" id="cardcode">
-                        <input type="text" id="cardname">
-                        <input type="text" id="carddate">
+                        <div class="wrapper__cardnumber"><input type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" id="cardcode"></div>
+                        <div class="wrapper__cardname"><input type="text" id="cardname"></div>
+                        <div class="wrapper__carddate"><input type="text" id="carddate"></div>
                     </form>
                 </div>
         </div>

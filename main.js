@@ -10,15 +10,31 @@ jQuery(function($) {
     });
 });
 
-//Редактировать карту
-$('.button_okk, .button_settings').click(function(e) {e.preventDefault()
-    $(this).parent().find('.button_cancel').toggle(100)
-    $(this).parent().find('.inputvalue').toggleClass('inputvalue__off')
-    $(this).parent().find('.button_settings').toggleClass('button_okk')
+//Применить изменения
+$('.button_ok').click(function(e) {e.preventDefault()
+    $(this).parent().find('.button_cancel').animate({width:'toggle'},150)
+    $(this).parent().find('.inputvalue').toggle()
+    $(this).parent().find('.button_ok').toggleClass('button_settings')
     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
     $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(( $(this).parent().find('#cardname').val()))
     $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
 })
+
+//Начать редактирование
+$('.button_settings').click(function(e) {e.preventDefault()
+    $(this).parent().find('.button_settings').toggleClass('button_ok')
+})
+
+
+//РАБОЧИЙ ВАРИАНТ НЕ УДАЛЯТЬ
+// $('.button_okk, .button_settings').click(function(e) {e.preventDefault()
+//     $(this).parent().find('.button_cancel').toggle(100)
+//     $(this).parent().find('.inputvalue').toggleClass('inputvalue__off')
+//     $(this).parent().find('.button_settings').toggleClass('button_okk')
+//     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
+//     $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(( $(this).parent().find('#cardname').val()))
+//     $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
+// })
 
 //Очистка содержимого(тест-ок)
 $('.button_cancel').click(function(e){e.preventDefault()

@@ -9,6 +9,11 @@
     100% {opacity: 0.5}
 }
 
+@keyframes ani {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+
 @keyframes rotate { to {--angle:360deg;}}
 
 @property --angle {
@@ -58,8 +63,8 @@ body {
     margin: 70px auto;
     padding: 20px 20px 20px 20px;
     width: 612px;
-    /* border: 5px solid; */
-    height: 376px;
+    /*border: 5px solid;
+    */height: 376px;
     background-image: linear-gradient(var(--angle), #d50000 0%, #0140ad 100%);
     border-radius: 40px;
     box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
@@ -67,9 +72,13 @@ body {
     -moz-border-radius: 40px;
     -ms-border-radius: 40px;
     -o-border-radius: 40px;
-    /* border-image: linear-gradient(var(--angle),#00cc99, #eef0f5, #6600ff) 1 ; */
-    animation: 5s rotate linear infinite;
-    -webkit-animation: 5s rotate linear infinite;
+    /*border-image: linear-gradient(var(--angle),#00cc99, #eef0f5, #6600ff) 1 ;*/
+    animation: 10s rotate linear infinite;
+    -webkit-animation: 10s rotate linear infinite;
+}
+
+.card:hover {
+    animation-play-state: paused;
 }
 
 .alfa {
@@ -178,7 +187,6 @@ input[type="text"]{
     width: 90%;
     letter-spacing: 0;
 }
-
 #cardname:hover{
     border-bottom: 3px solid rgb(255, 0, 0);
     transition: 1s;
@@ -206,18 +214,6 @@ input[type="text"]{
     -o-transition: 1s;
 }
 
-#carddate__off {
-    display: none;
-}
-
-#cardname__off {
-    display: none;
-}
-
-#cardcode__off {
-    display: none;
-}
-
 .inputvalue {
     position: absolute;
     left: 26px;
@@ -225,48 +221,44 @@ input[type="text"]{
     width: inherit;
 }
 
-.inputvalue__off {
-    display: none;
-}
-
 .button_card {
     margin-left: 20px;
 }
 
 /* Кнопки */
-/* Настройки */
-.button_settings {
-    background-image: url(/img/correct.png);
-    background-size: cover;
-    position: absolute;
-    color: #fff;
-    left: 581px;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    opacity: 1;
-}
-
-.button_settings:hover {
-    animation: opacity 2s linear infinite;
-}
-
 /* Кнопка ОК */
 .button_ok {
     background-image: url(/img/correct.png);
     background-size: cover;
     position: absolute;
     color: #fff;
-    left: 520px;
+    left: 584px;
     width: 48px;
     height: 48px;
     cursor: pointer;
+    animation: ani 4.5s;
+    -webkit-animation: ani 4.5s;
 }
 
-.button_okk {
+/* Настройки */
+.button_settings {
+    background-image: url(/img/settings.png);
+    background-size: cover;
+    opacity: 0.5;
+    position: absolute;
+    color: #fff;
+    left: 584px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    animation: ani 4.5s;
+    -webkit-animation: ani 4.5s;
+}
+
+/* .button_okk {
     background-image: url(/img/settings.png);
     opacity: 0.5;
-}
+} */
 
 .button_cancel {
     background-image: url(/img/cancel.png);
@@ -277,6 +269,7 @@ input[type="text"]{
     width: 48px;
     height: 48px;
     cursor: pointer;
+    z-index: 2;
 }
 .button_nav {
     min-width: 182px;
