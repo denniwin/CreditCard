@@ -10,10 +10,19 @@ jQuery(function($) {
     });
 });
 
+// console.log($('.number__off').val())
+    // if ($('.card').parent().find('#cardcode').val()) {
+    //     $(this).parent().find('.button_cancel').show();	
+    //     console.log($('.nuer__off').val())
+    // } else 
+    // $(this).parent().find('.button_cancel').hide()
+    // console.log('нет значений')
+    // console.log($(this).parent().find('.button_cancel'))
+
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
-    $(this).parent().find('.button_cancel').animate({width:'toggle'},150)
-    $(this).parent().find('.inputvalue').toggle()
+    // $(this).parent().find('.button_cancel').show();	
+    $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
     $(this).parent().find('.button_ok').toggleClass('button_settings')
     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
     $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(( $(this).parent().find('#cardname').val()))
@@ -22,7 +31,11 @@ $('.button_ok').click(function(e) {e.preventDefault()
 
 //Начать редактирование
 $('.button_settings').click(function(e) {e.preventDefault()
-    $(this).parent().find('.button_settings').toggleClass('button_ok')
+    if ($(this).parent().find('#cardcode').val().length <1) {
+        $(".button_cancel").toggle();	
+    } else 
+    alert ('Нечего показывать')
+
 })
 
 
@@ -36,32 +49,32 @@ $('.button_settings').click(function(e) {e.preventDefault()
 //     $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
 // })
 
+
+
 //Очистка содержимого(тест-ок)
 $('.button_cancel').click(function(e){e.preventDefault()
-    $(this).parent().find('#cardcode').val('')
-    $(this).parent().find('#cardholder').val('')
-    $(this).parent().find('#carddate').val('')
+    $(this).parent().find('.test1').val('')
 });
 
-//Клонирование карты(тест-ок)
+//Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
-    $('.card').parent().find('#cardcode').val('')
-    $('.card').parent().find('#cardholder').val('')
-    $('.card').parent().find('#carddate').val('')
-    $(".card").clone(true).appendTo(".wrapper");
+    $('.card:first-child').clone(true).appendTo(".wrapper");
+    $('.card:last-child').find('.test1').val('')
+    $('.card:last-child').find('.number__off').text('')
+    $('.card:last-child').find('.validdate__off').text('')
+    $('.card:last-child').find('.cardholder__off').text('')
 })
 
 // Удаление карты(тест-ок)
 $('#clear').click(function(e) {e.preventDefault()
     if ($('.card').length >1) {
         $(".card:last-child").detach();	
-        console.log($('.card').length)
     } else 
     alert ('Оставьте одну карту для редактирования')
 })
 
 //Только заглавные(тест-ок)
-$('#cardname').bind('input', function(){
+$('#cardname').on('input', function(){
 	$(this).val($(this).val().toUpperCase());
 });
 
@@ -73,7 +86,7 @@ function digits_int(target){
 }
 
 $(function($){
-	$('#cardcode').on('keyup keypress blur change', function(e){
+	$('#cardcode').on('input', function(e){
 		digits_int(this);
 	});
 	digits_int('#cardcode');
@@ -87,7 +100,7 @@ function digits_int_date(target){
 }
 
 $(function($){
-	$('#carddate').on('keyup keypress blur change', function(e){
+	$('#carddate').on('input', function(e){
 		digits_int_date(this);
 	});
 	digits_int_date('#carddate');
@@ -100,7 +113,7 @@ function digits_int_name(target){
 }
 
 $(function($){
-	$('#cardname').on('keyup keypress blur change', function(e){
+	$('#cardname').on('input', function(e){
 		digits_int_name(this);
 	});
 	digits_int_name('#cardname');
@@ -116,10 +129,9 @@ $(function($){
 //     let cardCode = this.value.replace(/[^\d]/g, '').substring(0,16);
 //     cardCode = cardCode != '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
 //     this.value = cardCode;
-//	val = $(target).val().replace(/[^0-9]/g, '');
-//	val = val.replace(/B(?=(d{3})+(?!d))/g, ' ');
-
-//     myform.number.value=this.value.split(" ").join("");
+// 	val = $(target).val().replace(/[^0-9]/g, '');
+// 	val = val.replace(/B(?=(d{3})+(?!d))/g, ' ');
+//  myform.number.value=this.value.split(" ").join("");
 // }
 
 
