@@ -21,7 +21,7 @@ jQuery(function($) {
 
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
-    // $(this).parent().find('.button_cancel').show();	
+    $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
     $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
     $(this).parent().find('.button_ok').toggleClass('button_settings')
     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
@@ -30,13 +30,13 @@ $('.button_ok').click(function(e) {e.preventDefault()
 })
 
 //Начать редактирование
-$('.button_settings').click(function(e) {e.preventDefault()
-    if ($(this).parent().find('#cardcode').val().length <1) {
-        $(".button_cancel").toggle();	
-    } else 
-    alert ('Нечего показывать')
+// $('.button_settings').click(function(e) {e.preventDefault()
+//     if ($('#cardcode').val() >1) {
+//         $(".button_cancel").toggle();	
+//     } else 
+//     alert ('Нечего показывать')
 
-})
+// })
 
 
 //РАБОЧИЙ ВАРИАНТ НЕ УДАЛЯТЬ
