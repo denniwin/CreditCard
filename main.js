@@ -96,14 +96,15 @@ $(function($){
 //Проверка символов в инпутах (на проверке)
 function checknum(test1){
     val = $(test1).val();
-    val = val !=false ? $('.button_cancel').show() : $('.button_cancel').hide(100);
+    val = val !== "" ? $('.button_cancel').show() : $('.button_cancel').hide(100);
 }
 
 $(function($){
-	$('#cardcode, #carddate, #cardholder').on('input', function(e){
+	$('#cardcode, #carddate, #cardname').on('input', function(e){
 		checknum(this);
 	});
-	checknum('#cardcode, #carddate, #cardholder');
+	checknum('#cardcode, #carddate, #cardname');
+    
 });
 
 //Валидация срока действия карты(тест-ок)
