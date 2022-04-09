@@ -92,6 +92,20 @@ $(function($){
 	digits_int('#cardcode');
 });
 
+
+//Проверка символов в инпутах (на проверке)
+function checknum(test1){
+    val = $(test1).val();
+    val = val !=false ? $('.button_cancel').show() : $('.button_cancel').hide(100);
+}
+
+$(function($){
+	$('#cardcode, #carddate, #cardholder').on('input', function(e){
+		checknum(this);
+	});
+	checknum('#cardcode, #carddate, #cardholder');
+});
+
 //Валидация срока действия карты(тест-ок)
 function digits_int_date(target){
     val = $(target).val().replace(/[^\d]/g, '').substring(0,4);
