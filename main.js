@@ -2,11 +2,12 @@
 //Дата время(тест-ок)
 jQuery(function($) {
     setInterval(function() {
-    var Months = ['январь', 'февраль', 'Мартик', 'Апрель']
+    var Months = ['январь', 'февраль', 'Мартик', 'April']
     var date = new Date()  
     var m = Months[date.getMonth()]
     time = date.toLocaleTimeString();
-    $(".date").text(`Сейчас ${time}, ${date.getDate()} ${m} ${date.getFullYear()} года`);
+    $(".hour").text(`${time}`);
+    $(".date").text(`${date.getDate()} ${m}`);
     });
 });
 

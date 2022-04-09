@@ -30,8 +30,16 @@ body {
     margin: 0 auto;
     font-family: 'Roboto', sans-serif;
     color: #fff;
-    background-color: rgb(85, 85, 85);/* background-image: linear-gradient(var(--angle), #000000 0%, #7f8288 100%); */
+    background-image: url(/img/back.jpg);
+    background-size: cover;
+    /* background-color: rgb(175, 182, 181);background-image: linear-gradient(var(--angle), #000000 0%, #7f8288 100%); */
     font-size: 25px;
+}
+
+::placeholder { 
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    opacity: .7;
 }
 
 /* Шапка */
@@ -39,15 +47,24 @@ body {
     width: 100%;
     position: fixed;
     padding-left: 10px;
+    padding-right: 10px;
     height: 50px;
     background-image: linear-gradient(to right, #2a6ad8 0%, #d84343 100%);
     display: flex;
     align-items: center;
-    justify-content: center;
+    text-align: center;
+    justify-content: space-around;
     flex-wrap: wrap;
-    z-index: 5;
 }
 
+.date__wrap {
+    font-size: 20px;
+    text-align: center;
+}
+
+.button__wrap {
+    font-size: 20px;
+}
 /* Обертка карт */
 .wrapper {
     display: flex;
@@ -117,7 +134,7 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-transform: uppercase;
-    font-size: 35px;
+    font-size: 30px;
     letter-spacing: 0;
     font-weight: 700;
     opacity: 0;
@@ -130,7 +147,7 @@ body {
 .number__off {
     position: absolute;
     top: 251px;
-    left: 60px;
+    left: 75px;
     font-size: 45px;
     font-weight: 700;
     letter-spacing: 5px;
@@ -171,7 +188,7 @@ input[type="text"]{
 .wrapper__cardnumber {
     position: absolute;
     top: -30px;
-    left: 32px;
+    left: 47px;
     width: 90%;
 }
 
@@ -230,7 +247,7 @@ input[type="text"]{
 .wrapper__cardname:after {
     content: '';
     position: absolute;
-    top: 47px;
+    top: 34px;
     left: -4px;
     height: 1px;
     background: #ccc;
@@ -245,7 +262,7 @@ input[type="text"]{
 .wrapper__cardname:before {
     content: '';
     position: absolute;
-    top: 47px;
+    top: 34px;
     left: -4px;
     height: 1px;
     background: #ccc;
@@ -260,7 +277,7 @@ input[type="text"]{
 .wrapper__cardname:hover:after{
     content: '';
     position: absolute;
-    top: 47px;
+    top: 34px;
     left: -4px;
     height: 1px;
     background: #4bae4f;
@@ -274,7 +291,7 @@ input[type="text"]{
 
 #cardname {
     letter-spacing: 0;
-    font-size: 35px;
+    font-size: 30px;
     width: 100%;
 }
 
@@ -429,22 +446,6 @@ input[type="text"]{
 .testok {
     background-color: #000;
 }
-
-.card__other {
-    background-image: linear-gradient(
-        45deg,
-        hsl(240deg 100% 20%) 0%,
-        hsl(268deg 63% 24%) 11%,
-        hsl(290deg 36% 29%) 22%,
-        hsl(327deg 24% 37%) 33%,
-        hsl(5deg 21% 46%) 44%,
-        hsl(28deg 31% 49%) 56%,
-        hsl(39deg 44% 52%) 67%,
-        hsl(46deg 61% 54%) 78%,
-        hsl(51deg 80% 55%) 89%,
-        hsl(55deg 100% 50%) 100%);
-}
-
 
 @media (max-width:1347px) {
 
