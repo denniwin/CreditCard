@@ -27,7 +27,10 @@ $('.button_ok').click(function(e) {e.preventDefault()
     $(this).parent().find('.button_ok').toggleClass('button_settings')
     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
     $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(( $(this).parent().find('#cardname').val()))
-    $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
+    let cardmon = $(this).parent().find('#carddate').val()
+    let cardyear = $(this).parent().find('#carddate2').val()
+    $(this).parent().find('.validdate__off').toggleClass('validdate').text(cardmon+ '/' +cardyear)
+    // $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
 })
 
 //Начать редактирование
@@ -89,8 +92,8 @@ function digits_int(target){
 $(function($){
 	$('#cardcode').on('input', function(e){
 		digits_int(this);
+        console.log($('#cardcode').val())
 	});
-	digits_int('#cardcode');
 });
 
 
@@ -110,16 +113,38 @@ $(function($){
 
 //Валидация срока действия карты(тест-ок)
 function digits_int_date(target){
-    val = $(target).val().replace(/[^\d]/g, '').substring(0,4);
+    val = $(target).val().replace(/[^\d]/g, '').substring(0,2);
     val = val != '' ? val.match(/.{1,2}/g).join('/') : '';
 	$(target).val(val);
 }
 
 $(function($){
 	$('#carddate').on('input', function(e){
-		digits_int_date(this);
+		digits_int_date(this);      
 	});
-	digits_int_date('#carddate');
+});
+
+// ПРОВЕРКА ДАННЫХ ДАТЫ СРОКА ДЕЙСТВИЯ
+$('body').on('input', '#carddate', function(){
+	var value = this.value.replace(/[^\d]/g, '');
+	if (value < $(this).data('min')) {
+		this.value = $(this).data('min');
+	} else if (value > $(this).data('max')) {
+		this.value = $(this).data('max');
+	} else {
+		this.value = value;
+	}
+});
+
+$('body').on('input', '#carddate2', function(){
+	var value = this.value.replace(/[^\d]/g, '');
+	if (value < $(this).data('min')) {
+		this.value = $(this).data('min');
+	} else if (value > $(this).data('max')) {
+		this.value = $(this).data('max');
+	} else {
+		this.value = value;
+	}
 });
 
 //Валидация имени и фамилии 

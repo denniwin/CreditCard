@@ -37,7 +37,7 @@ body {
 }
 
 ::placeholder { 
-    color: rgb(255, 255, 255);
+    color: rgb(158, 158, 158);
     font-size: 14px;
     opacity: .7;
 }
@@ -173,7 +173,8 @@ body {
     opacity: 1;
 }
 
-input[type="text"]{
+input[type="text"],
+input[type="number"] {
     font-family: 'Roboto', sans-serif;
     background-color: transparent;
     font-size: 45px;
@@ -183,6 +184,19 @@ input[type="text"]{
     outline: none;
     border: hidden;
 }
+
+input[type="number"] {
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+	appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	display: none;
+}
+
+
 
 /* Анимация подчеркивания номера карты */
 .wrapper__cardnumber {
@@ -299,7 +313,6 @@ input[type="text"]{
     position: absolute;
     top: 23px;
     left: 292px;
-    width: 20%;
 }
 
 .wrapper__carddate:after {
@@ -350,8 +363,23 @@ input[type="text"]{
 #carddate {
     font-size: 40px;
     letter-spacing: 0;
+    width: 49px;
 }
 
+#carddate2 {
+    font-size: 40px;
+    letter-spacing: 0;
+    width: 60px;
+}
+
+.inputvalue:before {
+    content: '/';
+    position: absolute;
+    top: 24px;
+    font-size: 40px;
+    font-weight: 700;
+    left: 336px;
+}
 .inputvalue {
     position: absolute;
     left: 26px;
