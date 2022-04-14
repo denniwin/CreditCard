@@ -29,7 +29,7 @@ body {
     scroll-behavior: smooth;
     margin: 0 auto;
     font-family: 'Roboto', sans-serif;
-    color: #fff;
+    background-color: #adadad;
     background-image: url(/img/back.jpg);
     background-size: cover;
     /* background-color: rgb(175, 182, 181);background-image: linear-gradient(var(--angle), #000000 0%, #7f8288 100%); */
