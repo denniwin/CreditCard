@@ -2,23 +2,52 @@
 //Дата время(тест-ок)
 jQuery(function($) {
     setInterval(function() {
-    var Months = ['январь', 'февраль', 'Мартик', 'April']
     var date = new Date()  
-    var m = Months[date.getMonth()]
     time = date.toLocaleTimeString();
     $(".hour").text(`${time}`);
-    $(".date").text(`${date.getDate()} ${m}`);
+    $(".date").text(`${date.getDay()}.${date.getDate()}.${date.getFullYear()}`);
     });
 });
 
-// console.log($('.number__off').val())
-    // if ($('.card').parent().find('#cardcode').val()) {
-    //     $(this).parent().find('.button_cancel').show();	
-    //     console.log($('.nuer__off').val())
-    // } else 
-    // $(this).parent().find('.button_cancel').hide()
-    // console.log('нет значений')
-    // console.log($(this).parent().find('.button_cancel'))
+//Транслитерация, тестовый вариант
+function translit(word){
+	var answer = '';
+	var converter = {
+		'а': 'a',    'б': 'b',    'в': 'v',    'г': 'g',    'д': 'd',
+		'е': 'e',    'ё': 'e',    'ж': 'zh',   'з': 'z',    'и': 'i',
+		'й': 'y',    'к': 'k',    'л': 'l',    'м': 'm',    'н': 'n',
+		'о': 'o',    'п': 'p',    'р': 'r',    'с': 's',    'т': 't',
+		'у': 'u',    'ф': 'f',    'х': 'h',    'ц': 'c',    'ч': 'ch',
+		'ш': 'sh',   'щ': 'sch',  'ь': '',     'ы': 'y',    'ъ': '',
+		'э': 'e',    'ю': 'yu',   'я': 'ya',
+ 
+		'А': 'A',    'Б': 'B',    'В': 'V',    'Г': 'G',    'Д': 'D',
+		'Е': 'E',    'Ё': 'E',    'Ж': 'Zh',   'З': 'Z',    'И': 'I',
+		'Й': 'Y',    'К': 'K',    'Л': 'L',    'М': 'M',    'Н': 'N',
+		'О': 'O',    'П': 'P',    'Р': 'R',    'С': 'S',    'Т': 'T',
+		'У': 'U',    'Ф': 'F',    'Х': 'H',    'Ц': 'C',    'Ч': 'Ch',
+		'Ш': 'Sh',   'Щ': 'Sch',  'Ь': '',     'Ы': 'Y',    'Ъ': '',
+		'Э': 'E',    'Ю': 'Yu',   'Я': 'Ya'
+	};
+ 
+	for (var i = 0; i < word.length; ++i ) {
+		if (converter[word[i]] == undefined){
+			answer += word[i];
+		} else {
+			answer += converter[word[i]];
+		}
+	}
+ 
+	return answer;
+}
+
+$('#cardname').on('input', function(){
+	$(this).val(function(i, val){
+		return translit(val);
+	});
+ 
+	return false;
+});
 
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
@@ -55,19 +84,49 @@ $('.button_ok').click(function(e) {e.preventDefault()
 
 
 
-//Очистка содержимого(тест-ок)
+// //Очистка содержимого(тест-ок)
+// $('.button_cancel')
+//     if ($(this).parent().find('.test1').val() !=false) {
+//         $(this).parent().find('.button_cancel').show()   
+//     }
+//     else
+//     $(this).parent().find('.button_cancel').hide(100)
+//     if ($(this).parent().find('.test1').val() !=false ) {
+//     console.log('есть контакт') 
+// }
+//         else 
+//         console.log('упс')
+//     }
+;
+
 $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.test1').val('')
 });
 
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
-    $('.card:first-child').clone(true).appendTo(".wrapper");
-    $('.card:last-child').find('.test1').val('')
-    $('.card:last-child').find('.number__off').text('')
-    $('.card:last-child').find('.validdate__off').text('')
-    $('.card:last-child').find('.cardholder__off').text('')
+    if ($('.card:last-child').find('.test1').val().length !=0) {
+        $('.card:first-child').clone(true).appendTo(".wrapper");
+        $('.card:last-child').find('.test1').val('')
+        $('.card:last-child').find('.number__off').text('')
+        $('.card:last-child').find('.validdate__off').text('')
+        $('.card:last-child').find('.cardholder__off').text('');
+        $('.card:last-child').find('.inputvalue__open').removeClass().addClass('inputvalue')
+        $('.card:last-child').find('.button_ok, button_settings').removeClass().addClass('button_ok')
+        $('.card:last-child').find('.button_cancel, button_cancel__off').removeClass().addClass('button_cancel')
+
+    } else 
+    alert ('Введите данные в карту')
 })
+
+// //Клонирование карты c пустыми значениями(тест-ок)
+// $('#add').click(function(e) {e.preventDefault()
+//     $('.card:first-child').clone(true).appendTo(".wrapper");
+//     $('.card:last-child').find('.test1').val('')
+//     $('.card:last-child').find('.number__off').text('')
+//     $('.card:last-child').find('.validdate__off').text('')
+//     $('.card:last-child').find('.cardholder__off').text('')
+// })
 
 // Удаление карты(тест-ок)
 $('#clear').click(function(e) {e.preventDefault()
@@ -92,24 +151,31 @@ function digits_int(target){
 $(function($){
 	$('#cardcode').on('input', function(e){
 		digits_int(this);
-        console.log($('#cardcode').val())
+            // console.log($('#cardcode').val())
 	});
 });
 
 
 //Проверка символов в инпутах (на проверке)
-function checknum(test1){
-    val = $(test1).val();
-    val = val !== "" ? $('.button_cancel').show() : $('.button_cancel').hide(100);
+function checknum(check){
+    val = $(check).val();
+    console.log(val)
+    val = val !=false ? $(this).parent().find('.button_cancel').removeClass() : $(this).parent().find('.button_cancel').removeClass();
+    console.log(val)
 }
 
 $(function($){
-	$('#cardcode, #carddate, #cardname').on('input', function(e){
+	$('.test1').on('input', function(e){
 		checknum(this);
-	});
-	checknum('#cardcode, #carddate, #cardname');
-    
+	});    
 });
+
+
+        // if ($('.alfa').parent().find('.test1').val() !=false) {
+        //     $('.alfa').parent().find('.button_cancel').show()   
+        // }
+        // else
+        // $('.alfa').parent().find('.button_cancel').hide(100)
 
 //Валидация срока действия карты(тест-ок)
 function digits_int_date(target){
