@@ -1,11 +1,12 @@
+$(function(){ // jQuery document ready сокращенный вариант
 
 //Дата время(тест-ок)
-jQuery(function($) {
+$(function(){
     setInterval(function() {
     var date = new Date()  
     time = date.toLocaleTimeString();
     $(".hour").text(`${time}`);
-    $(".date").text(`${date.getDay()}.${date.getDate()}.${date.getFullYear()}`);
+    $(".date").text(`${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`);
     });
 });
 
@@ -51,15 +52,17 @@ $('#cardname').on('input', function(){
 
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
+    if ($(this).hasClass('no__valid')) {
+alert('Карта не валидна')
+        return
+    }
+    $('.is_new').removeClass('is_new')
     $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
     $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
     $(this).parent().find('.button_ok').toggleClass('button_settings')
     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
     $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(( $(this).parent().find('#cardname').val()))
-    let cardmon = $(this).parent().find('#carddate').val()
-    let cardyear = $(this).parent().find('#carddate2').val()
-    $(this).parent().find('.validdate__off').toggleClass('validdate').text(cardmon+ '/' +cardyear)
-    // $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
+    $(this).parent().find('.validdate__off').toggleClass('validdate').text($(this).parent().find('#carddate').val())
 })
 
 //Начать редактирование
@@ -71,42 +74,23 @@ $('.button_ok').click(function(e) {e.preventDefault()
 
 // })
 
-
-//РАБОЧИЙ ВАРИАНТ НЕ УДАЛЯТЬ
-// $('.button_okk, .button_settings').click(function(e) {e.preventDefault()
-//     $(this).parent().find('.button_cancel').toggle(100)
-//     $(this).parent().find('.inputvalue').toggleClass('inputvalue__off')
-//     $(this).parent().find('.button_settings').toggleClass('button_okk')
-//     $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
-//     $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(( $(this).parent().find('#cardname').val()))
-//     $(this).parent().find('.validdate__off').toggleClass('validdate').text(( $(this).parent().find('#carddate').val()))
-// })
-
-
-
-// //Очистка содержимого(тест-ок)
-// $('.button_cancel')
-//     if ($(this).parent().find('.test1').val() !=false) {
-//         $(this).parent().find('.button_cancel').show()   
-//     }
-//     else
-//     $(this).parent().find('.button_cancel').hide(100)
-//     if ($(this).parent().find('.test1').val() !=false ) {
-//     console.log('есть контакт') 
-// }
-//         else 
-//         console.log('упс')
-//     }
-;
-
 $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.test1').val('')
+    $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
+    $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
+    $(this).parent().find('.button_ok').toggleClass('button_settings')
+    $(this).parent().find('.number__off').toggleClass('number')
+    $(this).parent().find('.cardholder__off').toggleClass('cardholder')
+    $(this).parent().find('.validdate__off').toggleClass('validdate')
+
 });
 
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
-    if ($('.card:last-child').find('.test1').val().length !=0) {
+    console.log($('.card:last-child').find('.test1').val().length)
+    if ($('.is_new').length == 0) {
         $('.card:first-child').clone(true).appendTo(".wrapper");
+        $('.card:last-child').addClass('is_new')
         $('.card:last-child').find('.test1').val('')
         $('.card:last-child').find('.number__off').text('')
         $('.card:last-child').find('.validdate__off').text('')
@@ -114,9 +98,8 @@ $('#add').click(function(e) {e.preventDefault()
         $('.card:last-child').find('.inputvalue__open').removeClass().addClass('inputvalue')
         $('.card:last-child').find('.button_ok, button_settings').removeClass().addClass('button_ok')
         $('.card:last-child').find('.button_cancel, button_cancel__off').removeClass().addClass('button_cancel')
-
     } else 
-    alert ('Введите данные в карту')
+    alert ('Сохраните карту')
 })
 
 // //Клонирование карты c пустыми значениями(тест-ок)
@@ -151,7 +134,24 @@ function digits_int(target){
 $(function($){
 	$('#cardcode').on('input', function(e){
 		digits_int(this);
-            // console.log($('#cardcode').val())
+            console.log($('#cardcode').val().length)
+            if ($('#cardcode').val().length==19) {
+                $.ajax({
+                    url: 'https://testedu.rfixit.ru/valid.php',         /* Куда пойдет запрос */
+                    method: 'post',             /* Метод передачи (post или get) */
+                    dataType: 'html',          /* Тип данных в ответе (xml, json, script, html). */
+                    data: {card: $('#cardcode').val()},     /* Параметры передаваемые в запросе. */
+                    success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+                        console.log (data);  
+                        if (data == 'error') {
+                            $('.button_ok').removeClass('no__valid')
+                        }          
+                        else {
+                            $('.button_ok').removeClass('no__valid')  
+                        }
+                    }
+                });
+            }
 	});
 });
 
@@ -179,7 +179,7 @@ $(function($){
 
 //Валидация срока действия карты(тест-ок)
 function digits_int_date(target){
-    val = $(target).val().replace(/[^\d]/g, '').substring(0,2);
+    val = $(target).val().replace(/[^\d]/g, '').substring(0,4);
     val = val != '' ? val.match(/.{1,2}/g).join('/') : '';
 	$(target).val(val);
 }
@@ -188,29 +188,6 @@ $(function($){
 	$('#carddate').on('input', function(e){
 		digits_int_date(this);      
 	});
-});
-
-// ПРОВЕРКА ДАННЫХ ДАТЫ СРОКА ДЕЙСТВИЯ
-$('body').on('input', '#carddate', function(){
-	var value = this.value.replace(/[^\d]/g, '');
-	if (value < $(this).data('min')) {
-		this.value = $(this).data('min');
-	} else if (value > $(this).data('max')) {
-		this.value = $(this).data('max');
-	} else {
-		this.value = value;
-	}
-});
-
-$('body').on('input', '#carddate2', function(){
-	var value = this.value.replace(/[^\d]/g, '');
-	if (value < $(this).data('min')) {
-		this.value = $(this).data('min');
-	} else if (value > $(this).data('max')) {
-		this.value = $(this).data('max');
-	} else {
-		this.value = value;
-	}
 });
 
 //Валидация имени и фамилии 
@@ -280,28 +257,6 @@ $(function($){
 
 
 //Применить изменения в резерв
-
-
-
-
-
-//Добавить имя владельца
-$('#btn_add_cardname').click(function(e){e.preventDefault()
-	$('.cardholder').text(($('#cardname').val()))
-});
-
-//Добавить срок действия
-$('#btn_add_date').click(function(e){e.preventDefault()
-	$('.validdate').text(($('#carddate').val()))
-});
-
-// Кнопка очистки всех значений
-$('').click(function(e){e.preventDefault()
-    $('.inputvalue').toggleClass('inputvalue__off').slideToggle()   
-});
-
-
-
 //Факультатив
 
 // result=[]
@@ -349,3 +304,16 @@ $('').click(function(e){e.preventDefault()
 
 // }
 // result
+// $(document).ready(function(){
+//     $.ajax({
+//         url: 'https://testedu.rfixit.ru/',         /* Куда пойдет запрос */
+//         method: 'post',             /* Метод передачи (post или get) */
+//         dataType: 'html',          /* Тип данных в ответе (xml, json, script, html). */
+//         data: {T: 'Текст',TT:"RRRRRRRR"},     /* Параметры передаваемые в запросе. */
+//         success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+//             alert(data);            /* В переменной data содержится ответ от index.php. */
+//         }
+//     });
+
+// })
+});

@@ -3,24 +3,10 @@
     src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* Тестовый коммент */
 }
 
-@keyframes opacity {
-    0% {opacity: 0.5}
-    50% {opacity: 1}
-    100% {opacity: 0.5}
-}
-    
-@keyframes rotate { to {--angle:360deg;}}
-
-@property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
-}
-
 *,
 *::after,
 *::before {
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 body {
@@ -30,17 +16,35 @@ body {
     margin: 0 auto;
     font-family: 'Roboto', sans-serif;
     background-color: #adadad;
-    background-image: url(/img/back.jpg);
+    color: #fff;
+    background-color: #adadad;
     background-size: cover;
-    /* background-color: rgb(175, 182, 181);background-image: linear-gradient(var(--angle), #000000 0%, #7f8288 100%); */
     font-size: 25px;
 }
 
 ::placeholder { 
-    color: rgb(158, 158, 158);
-    font-size: 14px;
-    opacity: .7;
+    font-size: 45px;
+    color: #fff;
+    letter-spacing: 5px;
+    opacity: .2;
 }
+
+#cardname::placeholder { 
+    font-size: 25px;
+    color: #fff;
+    letter-spacing: 5px;
+    opacity: .2;
+}
+
+#carddate::placeholder { 
+    font-size: 40px;
+    letter-spacing: 0;
+    width: 100%;
+    text-align: left;
+    color: #fff;
+    opacity: .2;
+}
+
 
 /* Шапка */
 .menu {
@@ -49,7 +53,7 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     height: 50px;
-    background-image: linear-gradient(to right, #2a6ad8 0%, #d84343 100%);
+    background-color: #4bae4f;
     display: flex;
     align-items: center;
     text-align: center;
@@ -76,13 +80,12 @@ body {
 
 /* Макет карты */
 .card {
-    --angle: 0deg;
     position: relative;
     margin: 70px auto;
-    padding: 20px 20px 20px 20px;
+    padding: 10px;
     width: 612px;
     height: 376px;
-    background-image: linear-gradient(var(--angle), #d50000 0%, #0140ad 100%);
+    background-color: #0140ad;
     border-radius: 40px;
     box-shadow: rgb(37 37 37) 1px 2px 12px 1px;
     -webkit-border-radius: 40px;
@@ -98,20 +101,17 @@ body {
     -o-transition: all 2s;
 }
 
-.card:hover {
-    animation-play-state: paused;
-}
-
 .alfa {
     position: absolute;
-    top: 8px;
+    left: 3%;
     font-size: 70px;
-    border-bottom: solid 5px #0140ad;
+    border-bottom: solid 5px #ff0000;
     pointer-events: none;
 }
 
 .chip {
     background-image: url(/img/chip.png);
+    filter: invert(1);
     background-size: cover;
     width: 64px;
     height: 64px;
@@ -125,17 +125,19 @@ body {
     -moz-transform: translate(0,-50%);
     -ms-transform: translate(0,-50%);
     -o-transform: translate(0,-50%);
+    -webkit-filter: invert(1);
 }
 
 .cardholder__off {
     position: absolute;
-    top: 351px;
-    left: 28px;
+    left: 50%;
+    transform: translate(-50%);
+    top: 332px;
     width: 90%;
     overflow: hidden;
     white-space: nowrap;
     text-transform: uppercase;
-    font-size: 30px;
+    font-size: 25px;
     letter-spacing: 0;
     font-weight: 700;
     opacity: 0;
@@ -147,8 +149,9 @@ body {
 
 .number__off {
     position: absolute;
-    top: 251px;
-    left: 75px;
+    top: 221px;
+    left: 50%;
+    transform: translate(-50%);
     font-size: 45px;
     font-weight: 700;
     letter-spacing: 5px;
@@ -163,8 +166,9 @@ body {
 
 .validdate__off {
     position: absolute;
-    top: 304px;
-    left: 320px;
+    top: 281px;
+    left: 298px;
+    width: 18%;
     font-size: 40px;
     font-weight: 700;
     opacity: 0;
@@ -174,8 +178,7 @@ body {
     opacity: 1;
 }
 
-input[type="text"],
-input[type="number"] {
+input[type="text"] {
     font-family: 'Roboto', sans-serif;
     background-color: transparent;
     font-size: 45px;
@@ -184,52 +187,44 @@ input[type="number"] {
     letter-spacing: 5px;
     outline: none;
     border: hidden;
+    padding: 0;
+    /* width: inherit; */
+    text-align: center;
 }
-
-input[type="number"] {
-	-moz-appearance: textfield;
-	-webkit-appearance: textfield;
-	appearance: textfield;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-	display: none;
-}
-
-
 
 /* Анимация подчеркивания номера карты */
 .wrapper__cardnumber {
     position: absolute;
-    top: -30px;
-    left: 47px;
-    width: 90%;
+    left: 50%;
+    transform: translate(-50%);
+    top: 221px;
 }
 
 .wrapper__cardnumber:after {
     content: '';
     position: absolute;
-    top: 47px;
-    left: -9px;
+    left: 50%;
+    transform: translate(-50%);
+    top: 50px;
+    width: 0;
     height: 1px;
     background: #ccc;
-    width: 0;
-    transition: 1s ease-out;
-    -webkit-transition: 1s ease-out;
-    -moz-transition: 1s ease-out;
-    -ms-transition: 1s ease-out;
-    -o-transition: 1s ease-out;
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
 }
 
 .wrapper__cardnumber:before {
     content: '';
     position: absolute;
-    top: 47px;
-    left: -9px;
+    left: 50%;
+    transform: translate(-50%);
+    top: 50px;
     height: 1px;
     background: #ccc;
-    width: 100%;
+    width: 85%;
     transition: 1s ease-out;
     -webkit-transition: 1s ease-out;
     -moz-transition: 1s ease-out;
@@ -240,30 +235,34 @@ input[type="number"]::-webkit-inner-spin-button {
 .wrapper__cardnumber:hover:after {
     content: '';
     position: absolute;
-    top: 47px;
-    left: -9px;
+    left: 50%;
+    transform: translate(-50%);
+    top: 50px;
     height: 1px;
-    width: 100%;
+    width: 85%;
     background: #4bae4f;
-    transition: 1s;
-    -webkit-transition: 1s;
-    -moz-transition: 1s;
-    -ms-transition: 1s;
-    -o-transition: 1s;
+    transition: 1s  ease-out;
+    -webkit-transition: 1s  ease-out;
+    -moz-transition: 1s  ease-out;
+    -ms-transition: 1s  ease-out;
+    -o-transition: 1s  ease-out;
 }
 
 /* Анимация подчеркивания владельца карты */
 .wrapper__cardname {
     position: absolute;
-    top: 70px;
-    width: 100%;
+    top: 332px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 90%;
 }
 
 .wrapper__cardname:after {
     content: '';
     position: absolute;
-    top: 34px;
-    left: -4px;
+    top: 28px;
+    left: 50%;
+    transform: translate(-50%);
     height: 1px;
     background: #ccc;
     width: 0;
@@ -277,8 +276,9 @@ input[type="number"]::-webkit-inner-spin-button {
 .wrapper__cardname:before {
     content: '';
     position: absolute;
-    top: 34px;
-    left: -4px;
+    top: 28px;
+    left: 50%;
+    transform: translate(-50%);
     height: 1px;
     background: #ccc;
     width: 100%;
@@ -292,8 +292,9 @@ input[type="number"]::-webkit-inner-spin-button {
 .wrapper__cardname:hover:after{
     content: '';
     position: absolute;
-    top: 34px;
-    left: -4px;
+    top: 28px;
+    left: 50%;
+    transform: translate(-50%);
     height: 1px;
     background: #4bae4f;
     width: 100%;
@@ -306,14 +307,16 @@ input[type="number"]::-webkit-inner-spin-button {
 
 #cardname {
     letter-spacing: 0;
-    font-size: 30px;
+    font-size: 25px;
+    text-align: left;
     width: 100%;
 }
 
 .wrapper__carddate {
     position: absolute;
-    top: 23px;
-    left: 292px;
+    top: 281px;
+    left: 298px;
+    width: 18%;
 }
 
 .wrapper__carddate:after {
@@ -350,7 +353,6 @@ input[type="number"]::-webkit-inner-spin-button {
     content: '';
     position: absolute;
     top: 44px;
-    left: -8px;
     height: 1px;
     background: #4bae4f;
     width: 100%;
@@ -364,28 +366,11 @@ input[type="number"]::-webkit-inner-spin-button {
 #carddate {
     font-size: 40px;
     letter-spacing: 0;
-    width: 49px;
+    width: 100%;
+    text-align: left;
 }
 
-#carddate2 {
-    font-size: 40px;
-    letter-spacing: 0;
-    width: 60px;
-}
-
-.inputvalue:before {
-    content: '/';
-    position: absolute;
-    top: 24px;
-    font-size: 40px;
-    font-weight: 700;
-    left: 336px;
-}
 .inputvalue {
-    position: absolute;
-    left: 26px;
-    top: 280px;
-    width: inherit;
     opacity: 1;
     transition: all .4s;
     -webkit-transition: all .4s;
@@ -407,10 +392,12 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Кнопка ОК */
 .button_ok {
     background-image: url(/img/correct.png);
+    filter: invert(1);
     background-size: cover;
     position: absolute;
     color: #fff;
-    left: 584px;
+    right: 3%;
+    top: 5%;
     width: 48px;
     height: 48px;
     cursor: pointer;
@@ -421,6 +408,11 @@ input[type="number"]::-webkit-inner-spin-button {
     -o-transition: .2s ease-out;
 }
 
+.no__valid {
+opacity: .3;
+
+}
+
 /* Настройки */
 .button_settings {
     background-image: url(/img/settings.png);
@@ -428,7 +420,8 @@ input[type="number"]::-webkit-inner-spin-button {
     opacity: 0.5;
     position: absolute;
     color: #fff;
-    left: 584px;
+    right: 3%;
+    top: 5%;
     width: 48px;
     height: 48px;
     cursor: pointer;
@@ -446,14 +439,15 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .button_cancel {
     background-image: url(/img/cancel.png);
+    filter: invert(1);
     background-size: cover;
     position: absolute;
     color: #fff;
-    left: 512px;
+    right: 13%;
+    top: 5%;
     width: 48px;
     height: 48px;
     cursor: pointer;
-    z-index: 2;
     opacity: 1;
     transition: .5s ease-out;
     -webkit-transition: .5s ease-out;
@@ -461,6 +455,10 @@ input[type="number"]::-webkit-inner-spin-button {
     -ms-transition: .5s ease-out;
     -o-transition: .5s ease-out;
 }
+
+.is_new .button_cancel {
+    opacity: 0;
+    }
 
 .button_cancel__off {
     opacity: 0;
