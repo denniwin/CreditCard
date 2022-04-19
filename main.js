@@ -55,24 +55,15 @@ $('.button_ok').click(function(e) {e.preventDefault()
     if ($(this).hasClass('no__valid')) {
 alert('Карта не валидна')
         return
-    }
+    } else
     $('.is_new').removeClass('is_new')
     $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
     $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
     $(this).parent().find('.button_ok').toggleClass('button_settings')
-    $(this).parent().find('.number__off').toggleClass('number').text(( $(this).parent().find('#cardcode').val()))
-    $(this).parent().find('.cardholder__off').toggleClass('cardholder').text(( $(this).parent().find('#cardname').val()))
+    $(this).parent().find('.number__off').toggleClass('number').text($(this).parent().find('#cardcode').val())
+    $(this).parent().find('.cardholder__off').toggleClass('cardholder').text($(this).parent().find('#cardname').val())
     $(this).parent().find('.validdate__off').toggleClass('validdate').text($(this).parent().find('#carddate').val())
 })
-
-//Начать редактирование
-// $('.button_settings').click(function(e) {e.preventDefault()
-//     if ($('#cardcode').val() >1) {
-//         $(".button_cancel").toggle();	
-//     } else 
-//     alert ('Нечего показывать')
-
-// })
 
 $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.test1').val('')
@@ -82,12 +73,10 @@ $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.number__off').toggleClass('number')
     $(this).parent().find('.cardholder__off').toggleClass('cardholder')
     $(this).parent().find('.validdate__off').toggleClass('validdate')
-
 });
 
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
-    console.log($('.card:last-child').find('.test1').val().length)
     if ($('.is_new').length == 0) {
         $('.card:first-child').clone(true).appendTo(".wrapper");
         $('.card:last-child').addClass('is_new')
@@ -98,18 +87,12 @@ $('#add').click(function(e) {e.preventDefault()
         $('.card:last-child').find('.inputvalue__open').removeClass().addClass('inputvalue')
         $('.card:last-child').find('.button_ok, button_settings').removeClass().addClass('button_ok')
         $('.card:last-child').find('.button_cancel, button_cancel__off').removeClass().addClass('button_cancel')
+        $('.card:last-child').find('.number__off, number').removeClass().addClass('number__off')
+        $('.card:last-child').find('.validdate__off, validdate').removeClass().addClass('validdate__off')
+        $('.card:last-child').find('.cardholder__off, cardholder').removeClass().addClass('cardholder__off')
     } else 
     alert ('Сохраните карту')
 })
-
-// //Клонирование карты c пустыми значениями(тест-ок)
-// $('#add').click(function(e) {e.preventDefault()
-//     $('.card:first-child').clone(true).appendTo(".wrapper");
-//     $('.card:last-child').find('.test1').val('')
-//     $('.card:last-child').find('.number__off').text('')
-//     $('.card:last-child').find('.validdate__off').text('')
-//     $('.card:last-child').find('.cardholder__off').text('')
-// })
 
 // Удаление карты(тест-ок)
 $('#clear').click(function(e) {e.preventDefault()
@@ -117,6 +100,14 @@ $('#clear').click(function(e) {e.preventDefault()
         $(".card:last-child").detach();	
     } else 
     alert ('Оставьте одну карту для редактирования')
+})
+
+$('#check').click(function(e) {e.preventDefault()
+    // if ($('.card').length >1) {
+    //     $(".card:last-child").detach();	
+    // } else 
+    // alert ('Оставьте одну карту для редактирования')
+    console.log($('.button_ok').parent().find('#cardcode').val())
 })
 
 //Только заглавные(тест-ок)
@@ -134,15 +125,22 @@ function digits_int(target){
 $(function($){
 	$('#cardcode').on('input', function(e){
 		digits_int(this);
-            console.log($('#cardcode').val().length)
-            if ($('#cardcode').val().length==19) {
+	});
+});
+
+
+$(function($){
+	$('.button_ok').click(function(e){
+                console.log($(this).parent().find('#carddate').val().substring(0,2))
+            if ($(this).parent().find('#cardcode').val().length==19 && 
+                $(this).parent().find('#carddate').val().substring(3,5) < 50 &&
+                $(this).parent().find('#carddate').val().substring(3,5) > 22) {
                 $.ajax({
                     url: 'https://testedu.rfixit.ru/valid.php',         /* Куда пойдет запрос */
                     method: 'post',             /* Метод передачи (post или get) */
                     dataType: 'html',          /* Тип данных в ответе (xml, json, script, html). */
-                    data: {card: $('#cardcode').val()},     /* Параметры передаваемые в запросе. */
-                    success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-                        console.log (data);  
+                    data: {card: $(this).parent().find('#cardcode').val()},     /* Параметры передаваемые в запросе. */
+                    success: function(data){   /* функция которая будет выполнена после успешного запроса.  */ 
                         if (data == 'error') {
                             $('.button_ok').removeClass('no__valid')
                         }          
@@ -151,17 +149,18 @@ $(function($){
                         }
                     }
                 });
-            }
+            } else
+            alert('НЕА')
 	});
 });
+
+
 
 
 //Проверка символов в инпутах (на проверке)
 function checknum(check){
     val = $(check).val();
-    console.log(val)
     val = val !=false ? $(this).parent().find('.button_cancel').removeClass() : $(this).parent().find('.button_cancel').removeClass();
-    console.log(val)
 }
 
 $(function($){
@@ -169,13 +168,6 @@ $(function($){
 		checknum(this);
 	});    
 });
-
-
-        // if ($('.alfa').parent().find('.test1').val() !=false) {
-        //     $('.alfa').parent().find('.button_cancel').show()   
-        // }
-        // else
-        // $('.alfa').parent().find('.button_cancel').hide(100)
 
 //Валидация срока действия карты(тест-ок)
 function digits_int_date(target){

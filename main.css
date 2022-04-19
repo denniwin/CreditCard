@@ -408,6 +408,37 @@ input[type="text"] {
     -o-transition: .2s ease-out;
 }
 
+#add, #clear, #check {
+	display: inline-block;
+	box-sizing: border-box;
+	padding: 0 9px;
+    outline: none;
+    border: none;
+    border-radius: 13px;
+    height: 37px;
+    line-height: 37px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: normal;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0140ad2b;
+	cursor: pointer;
+	user-select: none;
+	appearance: none;
+	touch-action: manipulation;
+	}
+#add:focus-visible, #clear:focus-visible, #check:focus-visible {
+	box-shadow: 0 0 0 3px lightskyblue;
+}
+#add:hover, #clear:hover, #check:hover {
+	box-shadow: 0 1px 1px 0  #cfcfcf, 0 2px 5px 0  #cfcfcf;
+    background-color: #058c38;
+}
+#add:active, #clear:active, #check:active {
+	background-color: #058c38 !important;
+}
+
 .no__valid {
 opacity: .3;
 
@@ -473,7 +504,7 @@ opacity: .3;
     background-color: #000;
 }
 
-@media (max-width:1347px) {
+@media (max-width:1920px) {
 
 .wrapper {
     flex-wrap: wrap; 
