@@ -49,16 +49,13 @@ $('#cardname').on('input', function(){
 	return false;
 });
 
-//                 $(this).parent().find('#cardcode').val().length==19 && 
-//                 $(this).parent().find('#cardname').val().length==3
-
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
-    // if ($(this).hasClass('no__valid')) {
-    //     alert('Карта не валидна')
-    //     return
-    // } else
-    // // $('.is_new').removeClass('is_new')
+    if ($(this).hasClass('no__valid')) {
+        alert('Карта не валидна')
+        return
+    } else
+    // $('.is_new').removeClass('is_new')
     $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
     $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
     $(this).parent().find('.button_ok').toggleClass('button_settings')
@@ -82,7 +79,7 @@ $('.button_cancel').click(function(e){e.preventDefault()
 $('#add').click(function(e) {e.preventDefault()
     if ($('.is_new').length == 0) {
         $('.card:first-child').clone(true).appendTo(".wrapper");
-        // $('.card:last-child').addClass('is_new')
+        $('.card:last-child').addClass('is_new')
         $('.card:last-child').find('.test1').val('')
         $('.card:last-child').find('.number__off').text('')
         $('.card:last-child').find('.validdate__off').text('')
@@ -117,13 +114,10 @@ function digits_int(target){
 	$(target).val(val);
     if ($(target).parent().find('#cardcode').val().length==19) {
         $(target).parent().parent().parent().find('#carddate').focus()
-        $('.button_ok').removeClass('no__valid')
         console.log('ok3') 
     }
     else
-    {
-        $('.button_ok').addClass('no__valid')
-        console.log('notok3')}
+    {console.log('notok3')  }
 }
 
 $(function($){
@@ -154,7 +148,7 @@ $(function($){
 
 //Запрос на сервер
 $(function($){
-	$('.button_ok').click(function(e){
+	$('#cardcode').on('input',function(e){
                 $.ajax({
                     url: 'https://testedu.rfixit.ru/valid.php',         /* Куда пойдет запрос */
                     method: 'post',                                     /* Метод передачи (post или get) */
@@ -162,11 +156,10 @@ $(function($){
                     data: {card: $(this).parent().find('#cardcode').val()},  
                         success: function(data){                         /* функция которая будет выполнена после успешного запроса.  */ 
                         if (data == 'error') {
-                        alert('Проверьте корректность ввода номера карты')   // $('.button_ok').addClass('no__valid') 
+                        console.log('Проверьте корректность ввода номера карты') 
+                        $('.button_ok').addClass('no__valid') 
                         }          
-                        else {
-                        alert('Ты лучший!')
-                        
+                        else {$('.button_ok').removeClass('no__valid')
                         }
                     }
                 });
@@ -178,7 +171,6 @@ $(function($){
 function checknum(check){
     val = $(check).val();
     val = val !=0 ? $(check).parent().parent().parent().find('.button_cancel').removeClass('button_cancel__off') : $(check).parent().parent().parent().find('.button_cancel').addClass('button_cancel__off');
-    console.log( $(check).parent().parent().parent().find('.button_cancel'))
 }
 
 $(function($){
@@ -196,38 +188,22 @@ function digits_int_date(target){
     $(target).parent().find('#carddate').val().substring(3,5) > 22 &&
     $(target).parent().find('#carddate').val().substring(0,2) < 13 &&
     $(target).parent().find('#carddate').val().substring(0,2) > 0 && 
-    $(target).parent().parent().parent().find('#carddate').val().length==5) {
+    $(target).parent().parent().parent().find('#carddate').val().length ==5) {
     $(target).parent().parent().parent().find('#cardname').focus()
     }
     else
     {
         console.log($(target).parent().find('#carddate').val().substring(0,2))
         console.log($(target).parent().find('#carddate').val().substring(3,5))
-        console.log($(target).parent().parent().parent().find('#carddate').length)
-        alert('Проверьте дату')}
+        console.log($(target).parent().parent().parent().find('#carddate').val().length)
+        console.log('Проверьте дату')}
 }
 
 $(function($){
 	$('#carddate').on('input', function(e){
-        if ($(this).val().length == 5) {digits_int_date(this)} //на тестировании
+    digits_int_date(this) //на тестировании
 	});
 });
-
-// $('.test1').on('keyup', function(event){
-//     if(event.keyCode == 13){ // 13 is the keycode for enter button
-//       $(this).next().focus();
-//       console.log($(this).next().focus())
-//     }
-//   });
-
-// $('#cardcode').keyup(function(){
-//     if($(this).val().length==19 || event.keyCode == 13){
-//         console.log('да')
-//     $(this).parent().parent().parent().find('#carddate').focus();
-//     } else if ($(this).parent().parent().parent().find('#carddate').length==5) {
-//         $(this).parent().parent().parent().find('#cardname').focus()
-//     }
-// });
 
 //Валидация имени и фамилии 
 function digits_int_name(target){
@@ -284,20 +260,6 @@ $(function($){
 //     this.value = cardname;
 //     myform.number.value=this.value.split(" ").join("");
 // }
-
-//Двойной клик по полю номера, в разработке
-// $('.number__off, .number').on('dblclick', function() {
-//     $('#cardcode').toggle()
-//     $('.button_settings').toggleClass('button_okk')
-//     $('.number__off').toggleClass('number')
-//     $('.validdate__off').toggleClass('validdate')
-//     $('.cardholder__off').toggleClass('cardholder')
-//     $('.number__off').text(($('#cardcode').val()))
-//     $('.cardholder__off').text(($('#cardname').val()))
-//     $('.validdate__off').text(($('#carddate').val())) 
-// })
-
-
 
 //Применить изменения в резерв
 //Факультатив

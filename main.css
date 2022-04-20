@@ -82,7 +82,7 @@ body {
 .card {
     position: relative;
     margin: 70px auto;
-    padding: 10px;
+    padding: 24px;
     width: 612px;
     height: 376px;
     background-color: #0140ad;
@@ -103,7 +103,6 @@ body {
 
 .alfa {
     position: absolute;
-    left: 3%;
     font-size: 70px;
     border-bottom: solid 5px #ff0000;
     pointer-events: none;
@@ -116,15 +115,9 @@ body {
     width: 64px;
     height: 64px;
     position: absolute;
-    top: 50%;
-    left: 40px;
-    transform: translate(0,-50%);
+    top: 132px;
     pointer-events: none;
     object-fit: contain;
-    -webkit-transform: translate(0,-50%);
-    -moz-transform: translate(0,-50%);
-    -ms-transform: translate(0,-50%);
-    -o-transform: translate(0,-50%);
     -webkit-filter: invert(1);
 }
 
@@ -441,7 +434,7 @@ input[type="text"] {
 
 .no__valid {
 opacity: .3;
-
+pointer-events: none;
 }
 
 /* Настройки */
