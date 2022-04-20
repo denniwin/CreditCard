@@ -116,6 +116,7 @@ function digits_int(target){
     val = val != '' ? val.match(/.{1,4}/g).join(' ') : '';
 	$(target).val(val);
     if ($(target).parent().find('#cardcode').val().length==19) {
+        $(target).parent().parent().parent().find('#carddate').focus()
         $('.button_ok').removeClass('no__valid')
         console.log('ok3') 
     }
@@ -194,18 +195,39 @@ function digits_int_date(target){
     if ($(target).parent().find('#carddate').val().substring(3,5) < 50 &&
     $(target).parent().find('#carddate').val().substring(3,5) > 22 &&
     $(target).parent().find('#carddate').val().substring(0,2) < 13 &&
-    $(target).parent().find('#carddate').val().substring(0,2) > 0) {
-        console.log('ok1') 
+    $(target).parent().find('#carddate').val().substring(0,2) > 0 && 
+    $(target).parent().parent().parent().find('#carddate').val().length==5) {
+    $(target).parent().parent().parent().find('#cardname').focus()
     }
     else
-    {alert('Проверьте дату')}
+    {
+        console.log($(target).parent().find('#carddate').val().substring(0,2))
+        console.log($(target).parent().find('#carddate').val().substring(3,5))
+        console.log($(target).parent().parent().parent().find('#carddate').length)
+        alert('Проверьте дату')}
 }
 
 $(function($){
-	$('#carddate').on('blur', function(e){ //на тестировании
-		digits_int_date(this);      
+	$('#carddate').on('input', function(e){
+        if ($(this).val().length == 5) {digits_int_date(this)} //на тестировании
 	});
 });
+
+// $('.test1').on('keyup', function(event){
+//     if(event.keyCode == 13){ // 13 is the keycode for enter button
+//       $(this).next().focus();
+//       console.log($(this).next().focus())
+//     }
+//   });
+
+// $('#cardcode').keyup(function(){
+//     if($(this).val().length==19 || event.keyCode == 13){
+//         console.log('да')
+//     $(this).parent().parent().parent().find('#carddate').focus();
+//     } else if ($(this).parent().parent().parent().find('#carddate').length==5) {
+//         $(this).parent().parent().parent().find('#cardname').focus()
+//     }
+// });
 
 //Валидация имени и фамилии 
 function digits_int_name(target){
