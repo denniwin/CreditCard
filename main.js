@@ -67,12 +67,12 @@ $('.button_ok').click(function(e) {e.preventDefault()
 //Отмена значений
 $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.test1').val('')
-    $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
-    $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
-    $(this).parent().find('.button_ok').toggleClass('button_settings')
-    $(this).parent().find('.number__off').toggleClass('number')
-    $(this).parent().find('.cardholder__off').toggleClass('cardholder')
-    $(this).parent().find('.validdate__off').toggleClass('validdate')
+    // $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
+    // $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
+    // $(this).parent().find('.button_ok').toggleClass('button_settings')
+    // $(this).parent().find('.number__off').toggleClass('number')
+    // $(this).parent().find('.cardholder__off').toggleClass('cardholder')
+    // $(this).parent().find('.validdate__off').toggleClass('validdate')
 });
 
 //Клонирование карты c пустыми значениями(тест-ок)
@@ -122,29 +122,24 @@ function digits_int(target){
 
 $(function($){
 	$('#cardcode').on('input', function(e){
-		digits_int(this);
+        digits_int(this)
+        numer = $(this).val().replace(" ", "");
+        if (numer.length > 5) { 
+            let cardInfo = new CardInfo(numer, {
+                banksLogosPath: './node_modules/card-info/dist/banks-logos/',
+                brandsLogosPath: './node_modules/card-info/dist/brands-logos/'
+            })
+            console.log(numer)
+            console.log(cardInfo.bankName)
+            console.log(cardInfo.bankLogo)
+            console.log(cardInfo.backgroundColor)
+            document.querySelector('.card').style.background = cardInfo.backgroundColor
+
+        }
+        else 
+        document.querySelector('.card').style.background = 'black'
 	});
 });
-
-// function validtest(number,name,datecard){
-//     number = $(number).parent().find('#cardcode').val().length==19
-//     name = val != '' ? val.match(/.{1,4}/g).join(' ') : '';
-// 	$(target).val(val);
-//     if () {
-//         $('.button_ok').removeClass('no__valid')
-//         console.log('ok3') 
-//     }
-//     else
-//     {
-//         $('.button_ok').addClass('no__valid')
-//         console.log('notok3')}
-// }
-
-// $(function($){
-// 	$('#cardcode').on('input', function(e){
-// 		digits_int(this);
-// 	});
-// });
 
 //Запрос на сервер
 $(function($){
@@ -157,9 +152,10 @@ $(function($){
                         success: function(data){                         /* функция которая будет выполнена после успешного запроса.  */ 
                         if (data == 'error') {
                         console.log('Проверьте корректность ввода номера карты') 
-                        $('.button_ok').addClass('no__valid') 
+                        $('#cardcode').parent().parent().parent().find('.button_ok').addClass('no__valid') 
                         }          
-                        else {$('.button_ok').removeClass('no__valid')
+                        else {$('#cardcode').parent().parent().parent().find('.button_ok').removeClass('no__valid')
+                        console.log('GOOD')  
                         }
                     }
                 });
@@ -222,103 +218,4 @@ $(function($){
 	});
 });
 
-
-// //Маска номера карты
-// for (var i in ['input', 'change', 'blur', 'keyup']) {
-//     cardcode.addEventListener('input', formatCardCode, false);
-// }
-
-// function formatCardCode() {
-//     let cardCode = this.value.replace(/[^\d]/g, '').substring(0,16);
-//     cardCode = cardCode != '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
-//     this.value = cardCode;
-// 	val = $(target).val().replace(/[^0-9]/g, '');
-// 	val = val.replace(/B(?=(d{3})+(?!d))/g, ' ');
-//  myform.number.value=this.value.split(" ").join("");
-// }
-
-
-// //Маска срока действия
-// for (var i in ['input', 'change', 'blur', 'keyup']) {
-//     carddate.addEventListener('input', formatcarddate, false);
-// }
-
-// function formatcarddate() {
-//     var carddate = this.value.replace(/[^\d]/g, '').substring(0,4);
-//     carddate = carddate != '' ? carddate.match(/.{1,2}/g).join('/') : '';
-//     this.value = carddate;
-//     myform.number.value=this.value.split(" ").join("");
-// }
-
-// //Маска имя пользователя
-// for (var i in ['input', 'change', 'blur', 'keyup']) {
-//     cardname.addEventListener('input', formatcardname, false);
-// }
-
-// function formatcardname() {
-//     var cardname = this.value.replace(/[^A-Z\s]+/ig, '').substring(0,30);
-//     this.value = cardname;
-//     myform.number.value=this.value.split(" ").join("");
-// }
-
-//Применить изменения в резерв
-//Факультатив
-
-// result=[]
-// start = 250
-// for (i=10;i<=start;i*=10) {
-//     result.push(Math.floor(start/i)
-//     )
-// }
-// result
-// (2) [25, 2]
-// result=[]
-// start = 25025648
-// for (i=10;i<=start;i*=10) {
-//     result.push(Math.floor(start/i)
-//     )
-// }
-// result
-// (7) [2502564, 250256, 25025, 2502, 250, 25, 2]0: 25025641: 2502562: 250253: 25024: 2505: 256: 2length: 7[[Prototype]]: Array(0)
-// result={}
-// start = 25025648
-// for (i=10;i<=start;i*=10) {
-//     result.push(Math.floor(start/i)
-//     )
-// }
-// result
-// let sum = 0;
-
-// while (true) {
-
-//   let value = +prompt("Введите число", '');
-
-//   if (!value) break; // (*)
-
-//   sum += value;
-
-// }
-// alert( 'Сумма: ' + sum );
-
-
-// VM1073:6 Uncaught SyntaxError: Unexpected token ')'
-// result={}
-// start = 25025648
-// for (i=10;i<=start;i*=10) {
-//     result[i] = Math.floor(start/i)
-
-// }
-// result
-// $(document).ready(function(){
-//     $.ajax({
-//         url: 'https://testedu.rfixit.ru/',         /* Куда пойдет запрос */
-//         method: 'post',             /* Метод передачи (post или get) */
-//         dataType: 'html',          /* Тип данных в ответе (xml, json, script, html). */
-//         data: {T: 'Текст',TT:"RRRRRRRR"},     /* Параметры передаваемые в запросе. */
-//         success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-//             alert(data);            /* В переменной data содержится ответ от index.php. */
-//         }
-//     });
-
-// })
 });

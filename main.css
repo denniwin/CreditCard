@@ -171,7 +171,8 @@ body {
     opacity: 1;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
     font-family: 'Roboto', sans-serif;
     background-color: transparent;
     font-size: 45px;
