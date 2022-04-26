@@ -134,10 +134,12 @@ $(function($){
             console.log(cardInfo.bankLogo)
             console.log(cardInfo.backgroundColor)
             document.querySelector('.card').style.background = cardInfo.backgroundColor
+            $('.alfa').css('background-image', 'url(' + cardInfo.bankLogo + ')');
 
         }
         else 
         document.querySelector('.card').style.background = 'black'
+        $('.alfa').css('background-image', 'url(' + 124 + ')');
 	});
 });
 

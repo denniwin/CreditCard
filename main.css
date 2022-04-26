@@ -103,9 +103,13 @@ body {
 
 .alfa {
     position: absolute;
-    font-size: 70px;
+    /* font-size: 70px;
     border-bottom: solid 5px #ff0000;
-    pointer-events: none;
+    pointer-events: none; */
+    background-size: cover;
+    object-fit: contain;
+    width: 200px;
+    height: 40px;
 }
 
 .chip {
