@@ -49,6 +49,8 @@ $('#cardname').on('input', function(){
 	return false;
 });
 
+
+
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
     if ($(this).hasClass('no__valid')) {
@@ -79,7 +81,7 @@ $('.button_cancel').click(function(e){e.preventDefault()
 $('#add').click(function(e) {e.preventDefault()
     if ($('.is_new').length == 0) {
         $('.card:first-child').clone(true).appendTo(".wrapper");
-        $('.card:last-child').addClass('is_new')
+        // $('.card:last-child').addClass('is_new')
         $('.card:last-child').find('.test1').val('')
         $('.card:last-child').find('.number__off').text('')
         $('.card:last-child').find('.validdate__off').text('')
@@ -90,6 +92,9 @@ $('#add').click(function(e) {e.preventDefault()
         $('.card:last-child').find('.number__off, number').removeClass().addClass('number__off')
         $('.card:last-child').find('.validdate__off, validdate').removeClass().addClass('validdate__off')
         $('.card:last-child').find('.cardholder__off, cardholder').removeClass().addClass('cardholder__off')
+        $('.card:last-child').css('background-color', '#0140ad')
+        $('.card:last-child').find('.logo').css('background-image', 'none');
+        $('.card:last-child').find('.vm').css('background-image', 'none');
     } else 
     alert ('Для продолжения сохраните карту')
 })
@@ -114,32 +119,31 @@ function digits_int(target){
 	$(target).val(val);
     if ($(target).parent().find('#cardcode').val().length==19) {
         $(target).parent().parent().parent().find('#carddate').focus()
-        console.log('ok3') 
     }
-    else
-    {console.log('notok3')  }
+    // else
+    // {console.log('notok3')  }
 }
 
 $(function($){
 	$('#cardcode').on('input', function(e){
         digits_int(this)
         numer = $(this).val().replace(" ", "");
-        if (numer.length > 5) { 
-            let cardInfo = new CardInfo(numer, {
-                banksLogosPath: './node_modules/card-info/dist/banks-logos/',
-                brandsLogosPath: './node_modules/card-info/dist/brands-logos/'
-            })
-            console.log(numer)
-            console.log(cardInfo.bankName)
-            console.log(cardInfo.bankLogo)
-            console.log(cardInfo.backgroundColor)
-            document.querySelector('.card').style.background = cardInfo.backgroundColor
-            $('.alfa').css('background-image', 'url(' + cardInfo.bankLogo + ')');
-
+        let cardInfo = new CardInfo(numer, {
+            banksLogosPath: './node_modules/card-info/dist/banks-logos/',
+            brandsLogosPath: './node_modules/card-info/dist/brands-logos/'
+        })
+        if (numer.length > 5 && cardInfo.bankLogo !==null ) { 
+            console.log($(this).parent().parent().parent().parent())
+            console.log($(this).parent().parent().parent())
+            $(this).parent().parent().parent().css('background-color', cardInfo.backgroundColor)
+            $(this).parent().parent().parent().find('.logo').css('background-image', 'url(' + cardInfo.bankLogo + ')');
+            $(this).parent().parent().parent().find('.vm').css('background-image', 'url(' + cardInfo.brandLogo + ')');
         }
-        else 
-        document.querySelector('.card').style.background = 'black'
-        $('.alfa').css('background-image', 'url(' + 124 + ')');
+        else if (numer.length < 6) {
+            $(this).parent().parent().parent().css('background-color', '#0140ad')
+            $(this).parent().parent().parent().find('.logo').css('background-image', 'none');
+            $(this).parent().parent().parent().find('.vm').css('background-image', 'none');
+        }
 	});
 });
 
@@ -153,17 +157,14 @@ $(function($){
                     data: {card: $(this).parent().find('#cardcode').val()},  
                         success: function(data){                         /* функция которая будет выполнена после успешного запроса.  */ 
                         if (data == 'error') {
-                        console.log('Проверьте корректность ввода номера карты') 
                         $('#cardcode').parent().parent().parent().find('.button_ok').addClass('no__valid') 
                         }          
                         else {$('#cardcode').parent().parent().parent().find('.button_ok').removeClass('no__valid')
-                        console.log('GOOD')  
                         }
                     }
                 });
 	});
 });
-
 
 //Проверка символов в инпутах (на проверке)
 function checknum(check){
@@ -191,10 +192,8 @@ function digits_int_date(target){
     }
     else
     {
-        console.log($(target).parent().find('#carddate').val().substring(0,2))
-        console.log($(target).parent().find('#carddate').val().substring(3,5))
-        console.log($(target).parent().parent().parent().find('#carddate').val().length)
-        console.log('Проверьте дату')}
+        console.log('Проверьте дату')
+    }
 }
 
 $(function($){
@@ -208,10 +207,9 @@ function digits_int_name(target){
     val = $(target).val().replace(/[^A-Z\s]+/ig, '').substring(0,30);
 	$(target).val(val);
     if ($(target).parent().find('#cardname').val().length==3) {
-        console.log('ok2') 
     }
-    else
-    {console.log('notok2')}
+    // else
+    // {console.log('notok2')}
 }
 
 $(function($){
