@@ -362,6 +362,7 @@ input[type="number"] {
     -o-transition: 1s;
 }
 
+
 .wrapper__carddate:hover:after {
     content: '';
     position: absolute;
@@ -382,6 +383,52 @@ input[type="number"] {
     width: 100%;
     text-align: left;
 }
+
+.gooddate {
+    position: absolute;
+    top: 11px;
+    left: 109px;
+    background-image: url(/img/good.png);
+    filter: invert(1);
+    background-size: cover;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    transition: 1s ease-out;
+    -webkit-transition: 1s ease-out;
+    -moz-transition: 1s ease-out;
+    -ms-transition: 1s ease-out;
+    -o-transition: 1s ease-out;
+    opacity: 0.4;
+}
+
+.goodcard {
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    background-image: url(/img/good.png);
+    filter: invert(1);
+    background-size: cover;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    transition: 1s ease-out;
+    -webkit-transition: 1s ease-out;
+    -moz-transition: 1s ease-out;
+    -ms-transition: 1s ease-out;
+    -o-transition: 1s ease-out;
+    opacity: 0.4;
+}
+
+.gooddate_ok {
+    opacity: 1;
+}
+
+
+.goodcard_ok {
+    opacity: 1;
+}
+
 
 .inputvalue {
     opacity: 1;

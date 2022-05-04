@@ -44,7 +44,7 @@ function translit(word){
 
 $('#cardname').on('input', function(){
 	$(this).val(function(i, val){
-		return translit(val);
+		return translit(val).toUpperCase();
 	});
 	return false;
 });
@@ -53,11 +53,6 @@ $('#cardname').on('input', function(){
 
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
-    if ($(this).hasClass('no__valid')) {
-        alert('Карта не валидна')
-        return
-    } else
-    // $('.is_new').removeClass('is_new')
     $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
     $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
     $(this).parent().find('.button_ok').toggleClass('button_settings')
@@ -79,9 +74,12 @@ $('.button_cancel').click(function(e){e.preventDefault()
 
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
-    if ($('.is_new').length == 0) {
+
+        if ( $('.card:last-child').find('#cardcode').val().length === 19 &&
+        $('.card:last-child').find('#carddate').val().length === 5 &&
+        $('.card:last-child').find('#cardname').val().length > 2 ) 
+        {
         $('.card:first-child').clone(true).appendTo(".wrapper");
-        // $('.card:last-child').addClass('is_new')
         $('.card:last-child').find('.test1').val('')
         $('.card:last-child').find('.number__off').text('')
         $('.card:last-child').find('.validdate__off').text('')
@@ -95,8 +93,9 @@ $('#add').click(function(e) {e.preventDefault()
         $('.card:last-child').css('background-color', '#0140ad')
         $('.card:last-child').find('.logo').css('background-image', 'none');
         $('.card:last-child').find('.vm').css('background-image', 'none');
-    } else 
-    alert ('Для продолжения сохраните карту')
+    } 
+    else 
+        alert ('Для продолжения сохраните карту')
 })
 
 // Удаление карты(тест-ок)
@@ -107,11 +106,6 @@ $('#clear').click(function(e) {e.preventDefault()
     alert ('Оставьте одну карту для редактирования')
 })
 
-//Только заглавные(тест-ок)
-$('#cardname').on('input', function(){
-	$(this).val($(this).val().toUpperCase());
-});
-
 //Валидация ввода номера карты(тест-ок)
 function digits_int(target){
     val = $(target).val().replace(/[^\d]/g, '').substring(0,16);
@@ -120,8 +114,6 @@ function digits_int(target){
     if ($(target).parent().find('#cardcode').val().length==19) {
         $(target).parent().parent().parent().find('#carddate').focus()
     }
-    // else
-    // {console.log('notok3')  }
 }
 
 $(function($){
@@ -133,8 +125,6 @@ $(function($){
             brandsLogosPath: './node_modules/card-info/dist/brands-logos/'
         })
         if (numer.length > 5 && cardInfo.bankLogo !==null ) { 
-            console.log($(this).parent().parent().parent().parent())
-            console.log($(this).parent().parent().parent())
             $(this).parent().parent().parent().css('background-color', cardInfo.backgroundColor)
             $(this).parent().parent().parent().find('.logo').css('background-image', 'url(' + cardInfo.bankLogo + ')');
             $(this).parent().parent().parent().find('.vm').css('background-image', 'url(' + cardInfo.brandLogo + ')');
@@ -147,22 +137,31 @@ $(function($){
 	});
 });
 
-//Запрос на сервер
+//Инпут маск на дату
+function digits_int_date(target){
+    val = $(target).val().replace(/[^\d]/g, '').substring(0,4);
+    val = val != '' ? val.match(/.{1,2}/g).join('/') : '';
+	$(target).val(val);
+    if ( $(target).parent().parent().parent().find('#carddate').val().length ==5) {
+    $(target).parent().parent().parent().find('#cardname').focus()
+    }
+}
+
 $(function($){
-	$('#cardcode').on('input',function(e){
-                $.ajax({
-                    url: 'https://testedu.rfixit.ru/valid.php',         /* Куда пойдет запрос */
-                    method: 'post',                                     /* Метод передачи (post или get) */
-                    dataType: 'html',                                   /* Тип данных в ответе (xml, json, script, html). */
-                    data: {card: $(this).parent().find('#cardcode').val()},  
-                        success: function(data){                         /* функция которая будет выполнена после успешного запроса.  */ 
-                        if (data == 'error') {
-                        $('#cardcode').parent().parent().parent().find('.button_ok').addClass('no__valid') 
-                        }          
-                        else {$('#cardcode').parent().parent().parent().find('.button_ok').removeClass('no__valid')
-                        }
-                    }
-                });
+	$('#carddate').on('input', function(e){
+    digits_int_date(this)
+	});
+});
+
+//Валидация имени и фамилии 
+function digits_int_name(target){
+    val = $(target).val().replace(/[^A-Z\s]+/ig, '').substring(0,30);
+	$(target).val(val);
+}
+
+$(function($){
+	$('#cardname').on('input', function(e){
+		digits_int_name(this);
 	});
 });
 
@@ -178,44 +177,60 @@ $(function($){
 	});    
 });
 
-//Валидация срока действия карты(тест-ок)
-function digits_int_date(target){
-    val = $(target).val().replace(/[^\d]/g, '').substring(0,4);
-    val = val != '' ? val.match(/.{1,2}/g).join('/') : '';
-	$(target).val(val);
-    if ($(target).parent().find('#carddate').val().substring(3,5) < 50 &&
-    $(target).parent().find('#carddate').val().substring(3,5) > 22 &&
-    $(target).parent().find('#carddate').val().substring(0,2) < 13 &&
-    $(target).parent().find('#carddate').val().substring(0,2) > 0 && 
-    $(target).parent().parent().parent().find('#carddate').val().length ==5) {
-    $(target).parent().parent().parent().find('#cardname').focus()
-    }
-    else
-    {
-        console.log('Проверьте дату')
-    }
-}
+//Проверка всех инпутов на нужные значения
+$(function($){
+	$('input').on('input', function(e){
+        if (
+        $(this).parent().parent().parent().find('#cardcode').val().length === 19 &&
+        $(this).parent().parent().parent().find('#carddate').val().length === 5 &&
+        $(this).parent().parent().parent().find('#cardname').val().length > 2 
+        ) {
+            $(this).parent().parent().parent().find('.button_ok').removeClass('no__valid')
+        }
+        else {
+            $(this).parent().parent().parent().find('.button_ok').addClass('no__valid')
+        }
+        
+	});
+});
 
+//Проверка корректности ввода даты 
 $(function($){
 	$('#carddate').on('input', function(e){
-    digits_int_date(this) //на тестировании
+        if ($(this).parent().find('#carddate').val().substring(3,5) < 50 &&
+        $(this).parent().parent().parent().find('#carddate').val().substring(3,5) > 21 &&
+        $(this).parent().parent().parent().find('#carddate').val().substring(0,2) < 13 &&
+        $(this).parent().parent().parent().find('#carddate').val().substring(0,2) > 0
+        ) {
+            $(this).parent().parent().parent().find('.gooddate').addClass('gooddate_ok')
+        }
+        else {
+            $(this).parent().parent().parent().find('.gooddate').removeClass('gooddate_ok')
+        }
+        
 	});
 });
 
-//Валидация имени и фамилии 
-function digits_int_name(target){
-    val = $(target).val().replace(/[^A-Z\s]+/ig, '').substring(0,30);
-	$(target).val(val);
-    if ($(target).parent().find('#cardname').val().length==3) {
-    }
-    // else
-    // {console.log('notok2')}
-}
-
+// Валидатор на номер карты по методу Луна
 $(function($){
-	$('#cardname').on('input', function(e){
-		digits_int_name(this);
+	$('#cardcode').on('input',function(e){
+                $.ajax({
+                    url: 'https://testedu.rfixit.ru/valid.php',
+                    method: 'post',
+                    dataType: 'html',
+                    data: {card: $(this).parent().parent().parent().find('#cardcode').val()},  
+                        success: function(data){
+                        if (data == 'error') {
+                            console.log('карта не очень')
+                            console.log($(this).parent().parent().parent().find('#cardcode').val())
+                        $(this).parent().parent().parent().find('.goodcard').removeClass('goodcard_ok') 
+                        }          
+                        else {
+                            console.log('карта нормуль')
+                            $(this).parent().parent().parent().find('.goodcard').addClass('goodcard_ok')
+                        }
+                    }
+                });
 	});
 });
-
 });
