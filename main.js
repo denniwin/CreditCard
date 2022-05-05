@@ -49,8 +49,6 @@ $('#cardname').on('input', function(){
 	return false;
 });
 
-
-
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
     $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
@@ -74,7 +72,6 @@ $('.button_cancel').click(function(e){e.preventDefault()
 
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
-
         if ( $('.card:last-child').find('#cardcode').val().length === 19 &&
         $('.card:last-child').find('#carddate').val().length === 5 &&
         $('.card:last-child').find('#cardname').val().length > 2 ) 
@@ -86,7 +83,8 @@ $('#add').click(function(e) {e.preventDefault()
         $('.card:last-child').find('.cardholder__off').text('');
         $('.card:last-child').find('.inputvalue__open').removeClass().addClass('inputvalue')
         $('.card:last-child').find('.button_ok, button_settings').removeClass().addClass('button_ok')
-        $('.card:last-child').find('.button_cancel, button_cancel__off').removeClass().addClass('button_cancel')
+        $('.card:last-child').find('.goodcard, goodcard_ok').removeClass().addClass('goodcard')
+        $('.card:last-child').find('.gooddate, gooddate_ok').removeClass().addClass('gooddate')
         $('.card:last-child').find('.number__off, number').removeClass().addClass('number__off')
         $('.card:last-child').find('.validdate__off, validdate').removeClass().addClass('validdate__off')
         $('.card:last-child').find('.cardholder__off, cardholder').removeClass().addClass('cardholder__off')
@@ -214,20 +212,18 @@ $(function($){
 // Валидатор на номер карты по методу Луна
 $(function($){
 	$('#cardcode').on('input',function(e){
+                let self = $(this)
                 $.ajax({
                     url: 'https://testedu.rfixit.ru/valid.php',
                     method: 'post',
                     dataType: 'html',
-                    data: {card: $(this).parent().parent().parent().find('#cardcode').val()},  
+                    data: {card:$(this).parent().parent().parent().find('#cardcode').val()},  
                         success: function(data){
                         if (data == 'error') {
-                            console.log('карта не очень')
-                            console.log($(this).parent().parent().parent().find('#cardcode').val())
-                        $(this).parent().parent().parent().find('.goodcard').removeClass('goodcard_ok') 
+                        $(self).parent().parent().parent().find('.goodcard').removeClass('goodcard_ok') 
                         }          
                         else {
-                            console.log('карта нормуль')
-                            $(this).parent().parent().parent().find('.goodcard').addClass('goodcard_ok')
+                            $(self).parent().parent().parent().find('.goodcard').addClass('goodcard_ok')
                         }
                     }
                 });
