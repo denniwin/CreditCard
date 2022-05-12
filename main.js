@@ -220,7 +220,7 @@ $(function($){
 	$('.button_ok').click(function(e){
                 let self = $(this)
                 $.ajax({
-                    url: 'https://testedu.rfixit.ru/ajax/feedback.php',
+                    url: '/ajax/feedback.php',
                     method: 'post',
                     dataType: 'html',
                     data: {cardcode:$(this).parent().find('#cardcode').val(),
@@ -235,7 +235,5 @@ $(function($){
                 });
 	});
 });
-
-// чекер
 
 });
