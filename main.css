@@ -563,6 +563,7 @@ pointer-events: none;
 
 @media (max-width:670px) {
 
+
 body {
     font-size: 12.5px;
     }
@@ -581,8 +582,13 @@ body {
     font-size: 17.5px;
 }
 
+.menu {
+    bottom: 0;
+}
+
 .card {
     padding: 12px;
+    margin: 20px auto;
     width: 306px;
     height: 173px;
     border-radius: 20px;

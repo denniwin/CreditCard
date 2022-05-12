@@ -1,5 +1,7 @@
 $(function(){ // jQuery document ready сокращенный вариант
 
+let valid_card
+
 //Дата время(тест-ок)
 $(function(){
     setInterval(function() {
@@ -10,7 +12,7 @@ $(function(){
     });
 });
 
-//Транслитерация, тестовый вариант
+//Транслитерация
 function translit(word){
 	var answer = '';
 	var converter = {
@@ -38,8 +40,8 @@ function translit(word){
 			answer += converter[word[i]];
 		}
 	}
- 
 	return answer;
+
 }
 
 $('#cardname').on('input', function(){
@@ -184,9 +186,13 @@ $(function($){
         $(this).parent().parent().parent().find('#cardname').val().length > 2 
         ) {
             $(this).parent().parent().parent().find('.button_ok').removeClass('no__valid')
+            valid_card = 1
+            console.log(valid_card)
         }
         else {
             $(this).parent().parent().parent().find('.button_ok').addClass('no__valid')
+            valid_card = 2
+            console.log(valid_card)
         }
         
 	});
@@ -211,22 +217,25 @@ $(function($){
 
 // Валидатор на номер карты по методу Луна
 $(function($){
-	$('#cardcode').on('input',function(e){
+	$('.button_ok').click(function(e){
                 let self = $(this)
                 $.ajax({
-                    url: 'https://testedu.rfixit.ru/valid.php',
+                    url: 'https://testedu.rfixit.ru/ajax/feedback.php',
                     method: 'post',
                     dataType: 'html',
-                    data: {card:$(this).parent().parent().parent().find('#cardcode').val()},  
+                    data: {cardcode:$(this).parent().find('#cardcode').val(),
+                            carddate: $(this).parent().find('#carddate').val(),
+                            cardname: $(this).parent().find('#cardname').val()},  
                         success: function(data){
                         if (data == 'error') {
-                        $(self).parent().parent().parent().find('.goodcard').removeClass('goodcard_ok') 
-                        }          
+                        alert('Что-то пошло не так')                        }          
                         else {
-                            $(self).parent().parent().parent().find('.goodcard').addClass('goodcard_ok')
-                        }
+                            alert('Данные отправлены')                        }
                     }
                 });
 	});
 });
+
+// чекер
+
 });
