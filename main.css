@@ -142,7 +142,7 @@ body {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    top: 89%;
+    top: 87%;
     width: 90%;
     overflow: hidden;
     white-space: nowrap;
@@ -265,7 +265,7 @@ input[type="number"] {
 /* Анимация подчеркивания владельца карты */
 .wrapper__cardname {
     position: absolute;
-    top: 88%;
+    top: 86%;
     left: 50%;
     transform: translate(-50%);
     width: 90%;
@@ -274,7 +274,7 @@ input[type="number"] {
 .wrapper__cardname:after {
     content: '';
     position: absolute;
-    top: 98%;
+    top: 92%;
     left: 50%;
     transform: translate(-50%);
     height: 1px;
@@ -290,7 +290,7 @@ input[type="number"] {
 .wrapper__cardname:before {
     content: '';
     position: absolute;
-    top: 98%;
+    top: 92%;
     left: 50%;
     transform: translate(-50%);
     height: 1px;
@@ -306,7 +306,7 @@ input[type="number"] {
 .wrapper__cardname:hover:after{
     content: '';
     position: absolute;
-    top: 98%;
+    top: 92%;
     left: 50%;
     transform: translate(-50%);
     height: 1px;
@@ -418,14 +418,10 @@ input[type="number"] {
     -moz-transition: 1s ease-out;
     -ms-transition: 1s ease-out;
     -o-transition: 1s ease-out;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
-.gooddate_ok {
-    opacity: 1;
-}
-
-.goodcard_ok {
+.valid_good {
     opacity: 1;
 }
 
@@ -455,8 +451,8 @@ input[type="number"] {
     background-size: cover;
     position: absolute;
     color: #fff;
-    right: 3%;
-    top: 5%;
+    right: 4%;
+    top: 6%;
     width: 48px;
     height: 48px;
     cursor: pointer;
@@ -509,11 +505,12 @@ pointer-events: none;
     background-size: cover;
     filter: invert(1);
     position: absolute;
-    right: 3%;
-    top: 5%;
+    right: 4%;
+    top: 6%;
     width: 48px;
     height: 48px;
     cursor: pointer;
+    display: none;
     transition: .3s ease-out;
     -webkit-transition: .3s ease-out;
     -moz-transition: .3s ease-out;
@@ -527,8 +524,8 @@ pointer-events: none;
     background-size: cover;
     position: absolute;
     color: #fff;
-    right: 13%;
-    top: 5%;
+    right: 14%;
+    top: 6%;
     width: 48px;
     height: 48px;
     cursor: pointer;

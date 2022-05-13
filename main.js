@@ -53,34 +53,37 @@ $('#cardname').on('input', function(){
 
 //Применить изменения
 $('.button_ok').click(function(e) {e.preventDefault()
-    $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
-    $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
-    $(this).parent().find('.button_ok').removeClass().addClass('button_settings')
-    $(this).parent().find('.number__off').toggleClass('number').text($(this).parent().find('#cardcode').val())
-    $(this).parent().find('.cardholder__off').toggleClass('cardholder').text($(this).parent().find('#cardname').val())
-    $(this).parent().find('.validdate__off').toggleClass('validdate').text($(this).parent().find('#carddate').val())
+    $(this).parent().find('.button_cancel').addClass('button_cancel__off')
+    $(this).parent().find('.inputvalue').addClass('inputvalue__open')
+    $(this).parent().find('.number__off').addClass('number').text($(this).parent().find('#cardcode').val())
+    $(this).parent().find('.cardholder__off').addClass('cardholder').text($(this).parent().find('#cardname').val())
+    $(this).parent().find('.validdate__off').addClass('validdate').text($(this).parent().find('#carddate').val())
+    $(this).hide()
+    $(this).parent().find('.button_settings').show()
 })
 
-//вернуться к редактированию
+//Вернуться к редактированию
 $('.button_settings').click(function(e) {e.preventDefault()
-    $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
-    $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
-    $(this).parent().find('.button_settings').removeClass().addClass('button_ok')
-    $(this).parent().find('.number__off').toggleClass('number').text($(this).parent().find('#cardcode').val())
-    $(this).parent().find('.cardholder__off').toggleClass('cardholder').text($(this).parent().find('#cardname').val())
-    $(this).parent().find('.validdate__off').toggleClass('validdate').text($(this).parent().find('#carddate').val())
+    $(this).parent().find('.button_cancel').removeClass('button_cancel__off')
+    $(this).parent().find('.inputvalue').removeClass('inputvalue__open')
+    // $(this).parent().find('.number__off').toggleClass('number').text($(this).parent().find('#cardcode').val())
+    // $(this).parent().find('.cardholder__off').toggleClass('cardholder').text($(this).parent().find('#cardname').val())
+    // $(this).parent().find('.validdate__off').toggleClass('validdate').text($(this).parent().find('#carddate').val())
+    $(this).hide()
+    $(this).parent().find('.button_ok').show()
 })
 
 
 //Отмена значений
 $('.button_cancel').click(function(e){e.preventDefault()
-    $(this).parent().find('.test1').val('')
-    // $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
-    // $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
-    // $(this).parent().find('.button_ok').toggleClass('button_settings')
-    // $(this).parent().find('.number__off').toggleClass('number')
-    // $(this).parent().find('.cardholder__off').toggleClass('cardholder')
-    // $(this).parent().find('.validdate__off').toggleClass('validdate')
+    // $(this).parent().find('.test1').val('')
+    $(this).parent().find('.button_cancel').addClass('button_cancel__off')
+    $(this).parent().find('.inputvalue').addClass('inputvalue__open')
+    $(this).parent().find('.button_ok').hide()
+    $(this).parent().find('.button_settings').show()
+    $(this).parent().find('.number__off').addClass('number')
+    $(this).parent().find('.cardholder__off').addClass('cardholder')
+    $(this).parent().find('.validdate__off').addClass('validdate')
 });
 
 //Клонирование карты c пустыми значениями(тест-ок)
@@ -94,10 +97,11 @@ $('#add').click(function(e) {e.preventDefault()
         $('.card:last-child').find('.number__off').text('')
         $('.card:last-child').find('.validdate__off').text('')
         $('.card:last-child').find('.cardholder__off').text('');
+        $('.card:last-child').find('.button_ok').show().addClass('no__valid')
+        $('.card:last-child').find('.button_settings').hide()
         $('.card:last-child').find('.inputvalue__open').removeClass().addClass('inputvalue')
-        $('.card:last-child').find('.button_settings').removeClass().addClass('button_ok')
-        $('.card:last-child').find('.goodcard, goodcard_ok').removeClass().addClass('goodcard')
-        $('.card:last-child').find('.gooddate, gooddate_ok').removeClass().addClass('gooddate')
+        $('.card:last-child').find('.goodcard, valid_good').removeClass().addClass('goodcard')
+        $('.card:last-child').find('.gooddate, valid_good').removeClass().addClass('gooddate')
         $('.card:last-child').find('.number__off, number').removeClass().addClass('number__off')
         $('.card:last-child').find('.validdate__off, validdate').removeClass().addClass('validdate__off')
         $('.card:last-child').find('.cardholder__off, cardholder').removeClass().addClass('cardholder__off')
@@ -215,16 +219,16 @@ $(function($){
         $(this).closest('.card').find('#carddate').val().substring(0,2) < 13 &&
         $(this).closest('.card').find('#carddate').val().substring(0,2) > 0
         ) {
-            $(this).closest('.card').find('.gooddate').addClass('gooddate_ok')
+            $(this).closest('.card').find('.gooddate').addClass('valid_good')
         }
         else {
-            $(this).closest('.card').find('.gooddate').removeClass('gooddate_ok')
+            $(this).closest('.card').find('.gooddate').removeClass('valid_good')
         }
         
 	});
 });
 
-// Отправка данных 
+// Отправка данных
 $(function($){
 	$('.button_ok').click(function(e){
                 let self = $(this)
@@ -237,9 +241,31 @@ $(function($){
                             cardname: $(this).parent().find('#cardname').val()},  
                         success: function(data){
                         if (data == 'error') {
-                        alert('Что-то пошло не так')                        }          
+                        alert('Что-то пошло не так')
+                    }          
                         else {
-                        alert('Данные отправлены')                        }
+                        alert('Данные отправлены')
+                    }
+                    }
+                });
+	});
+});
+
+$(function($){
+	$('#cardcode').on('input', function(e){
+                let self = $(this)
+                $.ajax({
+                    url: 'https://testedu.rfixit.ru/valid.php',
+                    method: 'post',
+                    dataType: 'html',
+                    data: {card:$(this).closest('.card').find('#cardcode').val()},  
+                        success: function(data){
+                        if (data == 'error') {
+                            $(self).closest('.card').find('.goodcard').removeClass('valid_good') 
+                        }          
+                        else {
+                            $(self).closest('.card').find('.goodcard').addClass('valid_good')
+                        }
                     }
                 });
 	});
