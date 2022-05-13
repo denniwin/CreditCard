@@ -507,9 +507,8 @@ pointer-events: none;
 .button_settings {
     background-image: url(/img/settings.png);
     background-size: cover;
-    opacity: 0.5;
+    filter: invert(1);
     position: absolute;
-    color: #fff;
     right: 3%;
     top: 5%;
     width: 48px;

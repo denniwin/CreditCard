@@ -55,11 +55,22 @@ $('#cardname').on('input', function(){
 $('.button_ok').click(function(e) {e.preventDefault()
     $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
     $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
-    $(this).parent().find('.button_ok').toggleClass('button_settings')
+    $(this).parent().find('.button_ok').removeClass().addClass('button_settings')
     $(this).parent().find('.number__off').toggleClass('number').text($(this).parent().find('#cardcode').val())
     $(this).parent().find('.cardholder__off').toggleClass('cardholder').text($(this).parent().find('#cardname').val())
     $(this).parent().find('.validdate__off').toggleClass('validdate').text($(this).parent().find('#carddate').val())
 })
+
+//вернуться к редактированию
+$('.button_settings').click(function(e) {e.preventDefault()
+    $(this).parent().find('.button_cancel').toggleClass('button_cancel__off')
+    $(this).parent().find('.inputvalue').toggleClass('inputvalue__open')
+    $(this).parent().find('.button_settings').removeClass().addClass('button_ok')
+    $(this).parent().find('.number__off').toggleClass('number').text($(this).parent().find('#cardcode').val())
+    $(this).parent().find('.cardholder__off').toggleClass('cardholder').text($(this).parent().find('#cardname').val())
+    $(this).parent().find('.validdate__off').toggleClass('validdate').text($(this).parent().find('#carddate').val())
+})
+
 
 //Отмена значений
 $('.button_cancel').click(function(e){e.preventDefault()
@@ -84,7 +95,7 @@ $('#add').click(function(e) {e.preventDefault()
         $('.card:last-child').find('.validdate__off').text('')
         $('.card:last-child').find('.cardholder__off').text('');
         $('.card:last-child').find('.inputvalue__open').removeClass().addClass('inputvalue')
-        $('.card:last-child').find('.button_ok, button_settings').removeClass().addClass('button_ok')
+        $('.card:last-child').find('.button_settings').removeClass().addClass('button_ok')
         $('.card:last-child').find('.goodcard, goodcard_ok').removeClass().addClass('goodcard')
         $('.card:last-child').find('.gooddate, gooddate_ok').removeClass().addClass('gooddate')
         $('.card:last-child').find('.number__off, number').removeClass().addClass('number__off')
@@ -111,8 +122,8 @@ function digits_int(target){
     val = $(target).val().replace(/[^\d]/g, '').substring(0,16);
     val = val != '' ? val.match(/.{1,4}/g).join(' ') : '';
 	$(target).val(val);
-    if ($(target).parent().find('#cardcode').val().length==19) {
-        $(target).parent().parent().parent().find('#carddate').focus()
+    if ($(target).closest('.card').find('#cardcode').val().length==19) {
+        $(target).closest('.card').find('#carddate').focus()
     }
 }
 
@@ -125,14 +136,14 @@ $(function($){
             brandsLogosPath: './node_modules/card-info/dist/brands-logos/'
         })
         if (numer.length > 5 && cardInfo.bankLogo !==null ) { 
-            $(this).parent().parent().parent().css('background-color', cardInfo.backgroundColor)
-            $(this).parent().parent().parent().find('.logo').css('background-image', 'url(' + cardInfo.bankLogo + ')');
-            $(this).parent().parent().parent().find('.vm').css('background-image', 'url(' + cardInfo.brandLogo + ')');
+            $(this).closest('.card').css('background-color', cardInfo.backgroundColor)
+            $(this).closest('.card').find('.logo').css('background-image', 'url(' + cardInfo.bankLogo + ')');
+            $(this).closest('.card').find('.vm').css('background-image', 'url(' + cardInfo.brandLogo + ')');
         }
         else if (numer.length < 6) {
-            $(this).parent().parent().parent().css('background-color', '#0140ad')
-            $(this).parent().parent().parent().find('.logo').css('background-image', 'none');
-            $(this).parent().parent().parent().find('.vm').css('background-image', 'none');
+            $(this).closest('.card').css('background-color', '#0140ad')
+            $(this).closest('.card').find('.logo').css('background-image', 'none');
+            $(this).closest('.card').find('.vm').css('background-image', 'none');
         }
 	});
 });
@@ -142,8 +153,8 @@ function digits_int_date(target){
     val = $(target).val().replace(/[^\d]/g, '').substring(0,4);
     val = val != '' ? val.match(/.{1,2}/g).join('/') : '';
 	$(target).val(val);
-    if ( $(target).parent().parent().parent().find('#carddate').val().length ==5) {
-    $(target).parent().parent().parent().find('#cardname').focus()
+    if ( $(target).closest('.card').find('#carddate').val().length ==5) {
+    $(target).closest('.card').find('#cardname').focus()
     }
 }
 
@@ -168,7 +179,7 @@ $(function($){
 //Проверка символов в инпутах (на проверке)
 function checknum(check){
     val = $(check).val();
-    val = val !=0 ? $(check).parent().parent().parent().find('.button_cancel').removeClass('button_cancel__off') : $(check).parent().parent().parent().find('.button_cancel').addClass('button_cancel__off');
+    val = val !=0 ? $(check).closest('.card').find('.button_cancel').removeClass('button_cancel__off') : $(check).parent().parent().parent().find('.button_cancel').addClass('button_cancel__off');
 }
 
 $(function($){
@@ -181,18 +192,16 @@ $(function($){
 $(function($){
 	$('input').on('input', function(e){
         if (
-        $(this).parent().parent().parent().find('#cardcode').val().length === 19 &&
-        $(this).parent().parent().parent().find('#carddate').val().length === 5 &&
-        $(this).parent().parent().parent().find('#cardname').val().length > 2 
+        $(this).closest('.card').find('#cardcode').val().length === 19 &&
+        $(this).closest('.card').find('#carddate').val().length === 5 &&
+        $(this).closest('.card').find('#cardname').val().length > 2 
         ) {
-            $(this).parent().parent().parent().find('.button_ok').removeClass('no__valid')
+            $(this).closest('.card').find('.button_ok').removeClass('no__valid')
             valid_card = 1
-            console.log(valid_card)
         }
         else {
-            $(this).parent().parent().parent().find('.button_ok').addClass('no__valid')
+            $(this).closest('.card').find('.button_ok').addClass('no__valid')
             valid_card = 2
-            console.log(valid_card)
         }
         
 	});
@@ -202,25 +211,25 @@ $(function($){
 $(function($){
 	$('#carddate').on('input', function(e){
         if ($(this).parent().find('#carddate').val().substring(3,5) < 50 &&
-        $(this).parent().parent().parent().find('#carddate').val().substring(3,5) > 21 &&
-        $(this).parent().parent().parent().find('#carddate').val().substring(0,2) < 13 &&
-        $(this).parent().parent().parent().find('#carddate').val().substring(0,2) > 0
+        $(this).closest('.card').find('#carddate').val().substring(3,5) > 21 &&
+        $(this).closest('.card').find('#carddate').val().substring(0,2) < 13 &&
+        $(this).closest('.card').find('#carddate').val().substring(0,2) > 0
         ) {
-            $(this).parent().parent().parent().find('.gooddate').addClass('gooddate_ok')
+            $(this).closest('.card').find('.gooddate').addClass('gooddate_ok')
         }
         else {
-            $(this).parent().parent().parent().find('.gooddate').removeClass('gooddate_ok')
+            $(this).closest('.card').find('.gooddate').removeClass('gooddate_ok')
         }
         
 	});
 });
 
-// Валидатор на номер карты по методу Луна
+// Отправка данных 
 $(function($){
 	$('.button_ok').click(function(e){
                 let self = $(this)
                 $.ajax({
-                    url: '/ajax/feedback.php',
+                    url: 'https://testedu.rfixit.ru/ajax/feedback.php',
                     method: 'post',
                     dataType: 'html',
                     data: {cardcode:$(this).parent().find('#cardcode').val(),
@@ -230,7 +239,7 @@ $(function($){
                         if (data == 'error') {
                         alert('Что-то пошло не так')                        }          
                         else {
-                            alert('Данные отправлены')                        }
+                        alert('Данные отправлены')                        }
                     }
                 });
 	});
