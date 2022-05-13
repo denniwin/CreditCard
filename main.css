@@ -112,8 +112,8 @@ body {
 
 .vm {
     position: absolute;
-    bottom: 58px;
-    right: 44px;
+    bottom: 18%;
+    right: 4%;
     background-size: cover;
     object-fit: contain;
     width: 56px;
@@ -601,8 +601,8 @@ body {
 }
 
 .vm {
-    bottom: 29px;
-    right: 22px;
+    bottom: 18%;
+    right: 4%;
     width: 28px;
     height: 17.5px;
 }
