@@ -86,6 +86,19 @@ $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.validdate__off').addClass('validdate')
 });
 
+function foo() {
+    $("#check").click();
+    };
+
+$('#check').click(function() {
+    $('.modal').show().animate({
+      width: [ "toggle", "swing" ],
+      height: [ "toggle", "swing" ],
+      opacity: "toggle"
+    }, 6000, "linear",);
+  });
+
+
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
         if ( $('.card:last-child').find('#cardcode').val().length === 19 &&
@@ -233,7 +246,7 @@ $(function($){
 	$('.button_ok').click(function(e){
                 let self = $(this)
                 $.ajax({
-                    url: 'https://testedu.rfixit.ru/ajax/feedback.php',
+                    url: 'https://testedu.rfixit.ru/telegram.php',
                     method: 'post',
                     dataType: 'html',
                     data: {cardcode:$(this).parent().find('#cardcode').val(),
@@ -244,7 +257,7 @@ $(function($){
                         alert('Что-то пошло не так')
                     }          
                         else {
-                        alert('Данные отправлены')
+                            foo()
                     }
                     }
                 });
