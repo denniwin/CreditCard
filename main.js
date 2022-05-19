@@ -281,6 +281,10 @@ $(function($){
                 if ($('#mail').is(':checked')){
                     urlsendtg = '#'
                 }
+                if ($('#mail').is(':checked') && $('#tg').is(':checked') ){
+                    urlsendtg = 'https://testedu.rfixit.ru/ajax/telegram.php'
+                    urlsendmail = 'https://testedu.rfixit.ru/ajax/mail.php'
+                }
                 $.ajax({
                     url: urlsendtg,
                     method: 'post',
@@ -288,7 +292,7 @@ $(function($){
                     data: {cardcode, carddate, cardname},  
                         success: function(data){
                         if (data == 'error') {
-                        alert('Что-то пошло не так')
+                        alert('Не удалось отправить в Телеграм')
                     }          
                         else {
                             $(self).parent().find('.button_settings').removeClass('button_load')
@@ -303,7 +307,7 @@ $(function($){
                     data: {cardcode, carddate, cardname},  
                         success: function(data){
                         if (data == 'error') {
-                        alert('Что-то пошло не так')
+                        alert('Не удалось отправить на почту')
                     }          
                         else {
                             $(self).parent().find('.button_settings').removeClass('button_load')
