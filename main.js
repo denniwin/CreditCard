@@ -91,10 +91,6 @@ $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.validdate__off').addClass('validdate')
 });
 
-// function foo() {
-//     $("#check").click();
-//     };
-
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
         if ( $('.card:last-child').find('#cardcode').val().length === 19 &&
@@ -212,15 +208,11 @@ $(function($){
             $(this).closest('.card').find('.button_ok').removeClass('no__valid')
         }
         else {
+            $(this).closest('.card').find('.button_ok').addClass('no__valid')
         }
         
 	});
 });
-
-function sendTelegram() {
-    $("#check").click();
-    };
-
 
 //Логика на чекер
 $(function($){
@@ -241,6 +233,18 @@ $(function($){
 	});
 });
 
+//Запрос почты
+$(function($){
+    $('#mail').on('input', function(e){
+        for (let i=0; i<1; i++) {
+        mail = prompt('Введите почту')
+        if ( mail != null && mail != '' && mail.length > 5 && mail.includes('@') == true) {
+            mail = mail.trim()
+        }
+        else {
+            i-- }}
+	});
+});
 
 //Проверка корректности ввода даты 
 $(function($){
@@ -262,18 +266,18 @@ $(function($){
 	$('.button_ok').click(function(e){
                 let self = $(this)
                 self.parent().find('.button_settings').addClass('button_load')
-                self.parent().addClass('no__valid')
                 cardcode = $(this).parent().find('#cardcode').val()
                 carddate = $(this).parent().find('#carddate').val()
                 cardname = $(this).parent().find('#cardname').val()
+                console.log(mail)
                 urlsendtg = 'https://testedu.rfixit.ru/ajax/telegram.php'
                 urlsendmail = 'https://testedu.rfixit.ru/ajax/mail.php'
                 urlsendnone = 'https://testedu.rfixit.ru/ajax/sql.php'
+                if ($(this).closest('.card').find('.valid_good').length <2) { confirm('Карта не валидна, продолжить?')}
                 if ($('#none').is(':checked')){
                     urlsendtg = '#'
                     urlsendmail = '#'
                     $(self).parent().find('.button_settings').removeClass('button_load')
-                    self.parent().removeClass('no__valid')
                 }
                 if ($('#tg').is(':checked')){
                     urlsendmail = '#'
@@ -296,7 +300,6 @@ $(function($){
                     }          
                         else {
                             $(self).parent().find('.button_settings').removeClass('button_load')
-                            self.parent().removeClass('no__valid')
                     }
                     }
                 });
@@ -304,14 +307,13 @@ $(function($){
                     url: urlsendmail,
                     method: 'post',
                     dataType: 'html',
-                    data: {cardcode, carddate, cardname},  
+                    data: {cardcode, carddate, cardname, mail},  
                         success: function(data){
                         if (data == 'error') {
                         alert('Не удалось отправить на почту')
                     }          
                         else {
                             $(self).parent().find('.button_settings').removeClass('button_load')
-                            self.parent().removeClass('no__valid')
                     }
                     }
                 });
@@ -341,5 +343,15 @@ $(function($){
                 });
 	});
 });
+
+
+//Инпут почты
+
+$('#clear').click(function(e) {e.preventDefault()
+    if ($('.card').length >1) {
+        $(".card:last-child").detach();	
+    } else 
+    alert ('Оставьте одну карту для редактирования')
+})
 
 });

@@ -61,9 +61,8 @@ body {
 }
 
 .wrap {
-    display: flex;
-    align-items: center;
-    font-size: 10px;
+    
+    font-size: 12px;
 }
 
 .date__wrap {
@@ -194,7 +193,7 @@ body {
     opacity: 1;
 }
 
-input[type="text"],
+.wrapper__input > input[type="text"],
 input[type="number"] {
     font-family: 'Roboto', sans-serif;
     background-color: transparent;
@@ -207,6 +206,12 @@ input[type="number"] {
     padding: 0;
     text-align: center;
 }
+
+input[type="checkbox"] {
+    vertical-align: middle; 
+    margin-top: -1px;
+}
+
 
 /* Анимация подчеркивания номера карты */
 .wrapper__cardnumber {
