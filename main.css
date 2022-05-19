@@ -10,7 +10,7 @@
 }
 
 body {
-    margin: 0;
+    box-sizing: border-box;
     padding: 0;
     scroll-behavior: smooth;
     margin: 0 auto;
@@ -58,6 +58,12 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
     z-index: 5;
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
 }
 
 .date__wrap {
@@ -518,6 +524,24 @@ pointer-events: none;
     -o-transition: .3s ease-out;
 }
 
+.button_load {
+    background-image: url(/img/loading.png);
+    filter: invert(1);
+    background-size: cover;
+    position: absolute;
+    color: #fff;
+    right: 4%;
+    top: 6%;
+    width: 48px;
+    height: 48px;
+    pointer-events: none;
+    transition: .2s ease-out;
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    -ms-transition: .2s ease-out;
+    -o-transition: .2s ease-out;
+}
+
 .button_cancel {
     background-image: url(/img/cancel.png);
     filter: invert(1);
@@ -537,6 +561,7 @@ pointer-events: none;
     -o-transition: .5s ease-out;
 }
 
+
 .modal {
     width: 300px;
     height: 200px;
@@ -549,10 +574,6 @@ pointer-events: none;
     right: 0;
     margin: 10px;
 }
-
-.is_new .button_cancel {
-    opacity: 0;
-    }
 
 .button_cancel__off {
     opacity: 0;
@@ -668,6 +689,11 @@ input[type="number"] {
 }
 
 .button_settings {
+    width: 24px;
+    height: 24px;
+}
+
+.button_load {
     width: 24px;
     height: 24px;
 }

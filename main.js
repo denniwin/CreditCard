@@ -1,7 +1,5 @@
 $(function(){ // jQuery document ready сокращенный вариант
 
-let valid_card
-
 //Дата время(тест-ок)
 $(function(){
     setInterval(function() {
@@ -34,7 +32,12 @@ function translit(word){
 	};
  
 	for (var i = 0; i < word.length; ++i ) {
-		if (converter[word[i]] == undefined){
+		if (
+            converter[
+            word[
+                i
+            ]
+        ] == undefined){
 			answer += word[i];
 		} else {
 			answer += converter[word[i]];
@@ -69,6 +72,9 @@ $('.button_settings').click(function(e) {e.preventDefault()
     $(this).parent().find('.number__off, number').removeClass().addClass('number__off')
     $(this).parent().find('.validdate__off, validdate').removeClass().addClass('validdate__off')
     $(this).parent().find('.cardholder__off, cardholder').removeClass().addClass('cardholder__off')
+    $(this).parent().find('#cardcode').val($(this).parent().find('.number__off, number').text())
+    $(this).parent().find('#cardname').val($(this).parent().find('.cardholder__off, cardholder').text())
+    $(this).parent().find('#carddate').val($(this).parent().find('.validdate__off, validdate').text())
     $(this).hide()
     $(this).parent().find('.button_ok').show()
 })
@@ -76,7 +82,6 @@ $('.button_settings').click(function(e) {e.preventDefault()
 
 //Отмена значений
 $('.button_cancel').click(function(e){e.preventDefault()
-    // $(this).parent().find('.test1').val('')
     $(this).parent().find('.button_cancel').addClass('button_cancel__off')
     $(this).parent().find('.inputvalue').addClass('inputvalue__open')
     $(this).parent().find('.button_ok').hide()
@@ -86,18 +91,9 @@ $('.button_cancel').click(function(e){e.preventDefault()
     $(this).parent().find('.validdate__off').addClass('validdate')
 });
 
-function foo() {
-    $("#check").click();
-    };
-
-$('#check').click(function() {
-    $('.modal').show().animate({
-      width: [ "toggle", "swing" ],
-      height: [ "toggle", "swing" ],
-      opacity: "toggle"
-    }, 6000, "linear",);
-  });
-
+// function foo() {
+//     $("#check").click();
+//     };
 
 //Клонирование карты c пустыми значениями(тест-ок)
 $('#add').click(function(e) {e.preventDefault()
@@ -196,7 +192,7 @@ $(function($){
 //Проверка символов в инпутах (на проверке)
 function checknum(check){
     val = $(check).val();
-    val = val !=0 ? $(check).closest('.card').find('.button_cancel').removeClass('button_cancel__off') : $(check).parent().parent().parent().find('.button_cancel').addClass('button_cancel__off');
+    val = val !=0 ? $(check).closest('.card').find('.button_cancel').removeClass('button_cancel__off') : $(check).closest('.card').find('.button_cancel').addClass('button_cancel__off');
 }
 
 $(function($){
@@ -207,31 +203,51 @@ $(function($){
 
 //Проверка всех инпутов на нужные значения
 $(function($){
-	$('input').on('input', function(e){
+	$('.test1').on('input', function(e){
         if (
         $(this).closest('.card').find('#cardcode').val().length === 19 &&
         $(this).closest('.card').find('#carddate').val().length === 5 &&
         $(this).closest('.card').find('#cardname').val().length > 2 
         ) {
             $(this).closest('.card').find('.button_ok').removeClass('no__valid')
-            valid_card = 1
         }
         else {
-            $(this).closest('.card').find('.button_ok').addClass('no__valid')
-            valid_card = 2
         }
         
 	});
 });
 
+function sendTelegram() {
+    $("#check").click();
+    };
+
+
+//Логика на чекер
+$(function($){
+    $('input[type="checkbox"]').on('input', function(e){
+        if ($('#tg').is(':checked') && $('#mail').is(':checked') && $('#none').is(':checked') != false) {
+            $('#tg').prop('checked', false)
+            $('#mail').prop('checked', false)
+            $('#none').prop('checked', true)
+        }
+        else if ($('#tg').is(':checked') || $('#mail').is(':checked')) {
+            $('#none').prop('checked', false)
+        }
+        else {
+            $('#tg').prop('checked', false)
+            $('#mail').prop('checked', false)
+            $('#none').prop('checked', true) 
+        }
+	});
+});
+
+
 //Проверка корректности ввода даты 
 $(function($){
 	$('#carddate').on('input', function(e){
-        if ($(this).parent().find('#carddate').val().substring(3,5) < 50 &&
-        $(this).closest('.card').find('#carddate').val().substring(3,5) > 21 &&
-        $(this).closest('.card').find('#carddate').val().substring(0,2) < 13 &&
-        $(this).closest('.card').find('#carddate').val().substring(0,2) > 0
-        ) {
+        month = $(this).closest('.card').find('#carddate').val().substring(0,2)
+        year = $(this).parent().find('#carddate').val().substring(3,5)
+        if (year < 50 && year > 21 && month < 13 && month > 0) {
             $(this).closest('.card').find('.gooddate').addClass('valid_good')
         }
         else {
@@ -245,33 +261,71 @@ $(function($){
 $(function($){
 	$('.button_ok').click(function(e){
                 let self = $(this)
+                self.parent().find('.button_settings').addClass('button_load')
+                self.parent().addClass('no__valid')
+                cardcode = $(this).parent().find('#cardcode').val()
+                carddate = $(this).parent().find('#carddate').val()
+                cardname = $(this).parent().find('#cardname').val()
+                urlsendtg = 'https://testedu.rfixit.ru/ajax/telegram.php'
+                urlsendmail = 'https://testedu.rfixit.ru/ajax/mail.php'
+                urlsendnone = 'https://testedu.rfixit.ru/ajax/sql.php'
+                if ($('#none').is(':checked')){
+                    urlsendtg = '#'
+                    urlsendmail = '#'
+                    $(self).parent().find('.button_settings').removeClass('button_load')
+                    self.parent().removeClass('no__valid')
+                }
+                if ($('#tg').is(':checked')){
+                    urlsendmail = '#'
+                }
+                if ($('#mail').is(':checked')){
+                    urlsendtg = '#'
+                }
                 $.ajax({
-                    url: 'https://testedu.rfixit.ru/telegram.php',
+                    url: urlsendtg,
                     method: 'post',
                     dataType: 'html',
-                    data: {cardcode:$(this).parent().find('#cardcode').val(),
-                            carddate: $(this).parent().find('#carddate').val(),
-                            cardname: $(this).parent().find('#cardname').val()},  
+                    data: {cardcode, carddate, cardname},  
                         success: function(data){
                         if (data == 'error') {
                         alert('Что-то пошло не так')
                     }          
                         else {
-                            foo()
+                            $(self).parent().find('.button_settings').removeClass('button_load')
+                            self.parent().removeClass('no__valid')
                     }
                     }
                 });
+                $.ajax({
+                    url: urlsendmail,
+                    method: 'post',
+                    dataType: 'html',
+                    data: {cardcode, carddate, cardname},  
+                        success: function(data){
+                        if (data == 'error') {
+                        alert('Что-то пошло не так')
+                    }          
+                        else {
+                            $(self).parent().find('.button_settings').removeClass('button_load')
+                            self.parent().removeClass('no__valid')
+                    }
+                    }
+                });
+
 	});
 });
 
+//Проверка по метожу Луна
 $(function($){
 	$('#cardcode').on('input', function(e){
-                let self = $(this)
+                let self = $(this),
+                card = $(this).closest('.card').find('#cardcode').val()
+                if (card.length == 19) 
                 $.ajax({
-                    url: 'https://testedu.rfixit.ru/valid.php',
+                    url: 'https://testedu.rfixit.ru/ajax/valid.php',
                     method: 'post',
                     dataType: 'html',
-                    data: {card:$(this).closest('.card').find('#cardcode').val()},  
+                    data: {card},  
                         success: function(data){
                         if (data == 'error') {
                             $(self).closest('.card').find('.goodcard').removeClass('valid_good') 
